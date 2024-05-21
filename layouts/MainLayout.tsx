@@ -21,7 +21,7 @@ const MainLayout = ({ title, children }: props) => {
       </Head>
       <div className="flex">
         <Sidebar />
-        <main className="ml-16 flex grow flex-col gap-4 p-4 pt-4 md:p-6 lg:ml-60 lg:p-8">
+        <main className="ml-16 flex grow flex-col gap-6 p-4 pt-4 md:p-6 lg:ml-60 lg:p-8">
           <div className="flex flex-col gap-2">
             <h1 className="text-4xl font-bold">{title}</h1>
             <Breadcrumb />

@@ -1,13 +1,15 @@
 import CardTotal from "@/components/overview/CardTotal";
 import MainLayout from "@/layouts/MainLayout";
 import axiosApi from "@/src/plugins/axios";
-import { DataChartParams, ListTotalParams } from "@/src/types";
+import dynamic from "next/dynamic";
 
 // Stores
 import { useLayoutStore } from "@/stores/layout";
 import { useEffect, useState } from "react";
 
-import Chart from "react-apexcharts";
+import { DataChartParams, ListTotalParams } from "@/src/types";
+
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const Home = () => {
   const { setBreadcrumb, errorHandler } = useLayoutStore();
@@ -36,23 +38,23 @@ const Home = () => {
   const chartSeries = [
     {
       name: "High",
-      data: dataChart?.map((item) => item.high) as Number[],
+      data: dataChart?.map((item) => item.high) as number[],
     },
     {
       name: "Normal",
-      data: dataChart?.map((item) => item.normal) as Number[],
+      data: dataChart?.map((item) => item.normal) as number[],
     },
     {
       name: "Low",
-      data: dataChart?.map((item) => item.low) as Number[],
+      data: dataChart?.map((item) => item.low) as number[],
     },
   ];
 
   const getListTotal = async () => {
     try {
       setLoadingListTotal(true);
-      const response = await axiosApi.get("/api-tts/list-total");
-      setListTotal(response.data[0]);
+      const response = await axiosApi.get("/list-total.json");
+      setListTotal(response.data);
     } catch (error) {
       errorHandler(error);
     } finally {
@@ -62,7 +64,7 @@ const Home = () => {
 
   const getDataChart = async () => {
     try {
-      const response = await axiosApi.get("/api-tts/ticket-graph");
+      const response = await axiosApi.get("/tickets-graph.json");
       setDataChart(response.data);
       setTotalDataChart({
         high: dataChart
@@ -88,7 +90,7 @@ const Home = () => {
 
   return (
     <MainLayout title="Overview">
-      <div className="flex flex-row items-center gap-4">
+      <div className="flex flex-row items-center gap-6">
         <CardTotal
           title="Unresolved"
           total={listTotal?.unresolved}
@@ -117,6 +119,7 @@ const Home = () => {
           <span className="text-sm text-slate-500">
             Last updated in 99 December 2099 10:15:20
           </span>
+
           <Chart
             type="area"
             options={chartOptions}
@@ -139,6 +142,11 @@ const Home = () => {
             <span className="text-3xl font-bold">{totalDataChart?.low}</span>
           </div>
         </div>
+      </div>
+
+      <div className="flex w-full flex-row items-start gap-6">
+        <div className="flex w-full flex-col rounded-lg bg-white px-8 py-6 shadow-md"></div>
+        <div className="flex w-full flex-col rounded-lg bg-white px-8 py-6 shadow-md"></div>
       </div>
     </MainLayout>
   );

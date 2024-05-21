@@ -16,6 +16,7 @@ const createAxiosInstance = () => {
       if (token) {
         config.headers["Authorization"] = `Bearer ${token}`;
       }
+      config.headers["X-API-Key"] = "10f9a110";
 
       return config;
     },
