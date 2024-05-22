@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
   body {
     @apply overflow-y-auto overflow-x-hidden bg-slate-300;
   }

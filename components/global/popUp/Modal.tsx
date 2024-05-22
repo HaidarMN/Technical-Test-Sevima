@@ -1,17 +1,7 @@
 import { ModalType } from "@/src/types";
 import React, { FC, useState } from "react";
 
-const Modal: FC<ModalType> = ({
-  modalTitle,
-  children,
-  buttonTrigger,
-  buttonClose,
-  buttonAction,
-  onButtonAction,
-  width = "lg",
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const Modal: FC<ModalType> = ({ children, width = "lg", isOpen }) => {
   const getWidth = () => {
     switch (width) {
       case "sm":
@@ -29,27 +19,12 @@ const Modal: FC<ModalType> = ({
 
   return (
     <>
-      {React.cloneElement(buttonTrigger, { onClick: () => setIsOpen(!isOpen) })}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex min-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black/50 p-6">
+        <div className="fixed inset-0 z-50 flex min-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black/25 p-6">
           <div
-            className={`flex max-h-full w-full flex-col gap-4 overflow-y-auto overflow-x-hidden ${getWidth()} animate__animated animate__zoomIn animate__fastest rounded-lg bg-slate-300 p-6`}
+            className={`flex max-h-full w-full flex-col gap-4 overflow-y-auto overflow-x-hidden ${getWidth()} animate__animated animate__zoomIn animate__fastest rounded-lg bg-white p-6`}
           >
-            <h1 className="text-xl font-bold text-slate-950">{modalTitle}</h1>
-
             {children}
-
-            <div className="flex w-full flex-row items-center justify-end gap-4">
-              {React.cloneElement(buttonClose, {
-                onClick: () => setIsOpen(false),
-              })}
-              {React.cloneElement(buttonAction, {
-                onClick: () => {
-                  setIsOpen(false);
-                  onButtonAction();
-                },
-              })}
-            </div>
           </div>
         </div>
       )}

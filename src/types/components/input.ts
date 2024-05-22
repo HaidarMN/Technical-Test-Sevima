@@ -15,7 +15,10 @@ export type RadioInputType = GlobalInputType & {
 };
 
 export type SelectInputType = GlobalInputType & {
-  options: object[];
+  options: {
+    value: any;
+    label: any;
+  }[];
   multi?: boolean;
 };
 

@@ -31,8 +31,8 @@ const InputSelect: FC<SelectInputType> = ({
         htmlFor={name}
         className="flex flex-row items-start gap-1 text-sm text-slate-950"
       >
-        {label}
         {primary && <strong className="text-red-600">*</strong>}
+        {label}
       </label>
       <div className="flex w-full flex-row items-center">
         {icon && (
@@ -40,7 +40,7 @@ const InputSelect: FC<SelectInputType> = ({
             className={`flex h-10 items-center justify-center rounded-l border px-3 py-2 ${
               error
                 ? "border-red-600 bg-red-600 text-white"
-                : "border-slate-950 bg-gray-100 text-slate-950"
+                : "border-slate-300 bg-gray-100 text-slate-950"
             }`}
           >
             {icon}
@@ -53,7 +53,7 @@ const InputSelect: FC<SelectInputType> = ({
           classNames={{
             container: () => `!w-full !h-10`,
             control: () =>
-              `!border !shadow-none ${icon ? "!rounded-r !border-l-0" : "!rounded"} ${disabled ? "!cursor-not-allowed !bg-gray-300" : null} ${error ? "!border-red-600" : "!border-slate-950"}`,
+              `!border !shadow-none ${icon ? "!rounded-r-md !border-l-0" : "!rounded-md"} ${disabled ? "!cursor-not-allowed !bg-gray-300" : null} ${error ? "!border-red-600" : "!border-slate-300"}`,
           }}
           isDisabled={disabled}
           isClearable
@@ -76,6 +76,10 @@ const InputSelect: FC<SelectInputType> = ({
               : val.value === fieldProps?.value,
           )}
           options={options}
+          menuPortalTarget={document.body}
+          styles={{
+            menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+          }}
         />
       </div>
       {error && <span className="text-sm text-red-600">{error}</span>}
