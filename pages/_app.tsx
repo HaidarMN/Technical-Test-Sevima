@@ -4,7 +4,7 @@ import "animate.css";
 import { useLayoutStore } from "@/stores/layout";
 import { useAuthStore } from "@/stores/auth";
 import { useEffect } from "react";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 
 // Components
 import Spinner from "@/components/global/loader/Spinner";
@@ -30,6 +30,11 @@ const App = ({ Component, pageProps }: AppProps) => {
     //     });
     //     router.push("/auth/login");
     //   }
+    const theme = Cookies.get("theme");
+    var root = document.getElementsByTagName("html")[0];
+    theme === "dark"
+      ? root.classList.add("dark")
+      : root.classList.remove("dark");
   }, []);
 
   return (
