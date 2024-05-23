@@ -150,8 +150,6 @@ const Tasks = () => {
   useEffect(() => {
     setBreadcrumb(["Tasks"]);
     getData();
-    setValue("priority", router.query?.priority as string);
-    setValue("status", router.query?.status as string);
   }, [router.query]);
 
   return (
@@ -208,8 +206,11 @@ const Tasks = () => {
             </thead>
 
             <tbody>
-              {data.map((item) => (
-                <tr className="border-b">
+              {data.map((item, index) => (
+                <tr
+                  className={index === data.length - 1 ? "" : "border-b"}
+                  key={item.id}
+                >
                   <td className="p-4 pl-0">
                     <input
                       type="checkbox"
