@@ -20,7 +20,7 @@ import CardUnresolvedTicket from "@/components/overview/CardUnresolvedTickets";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const Home = () => {
-  const { setBreadcrumb, errorHandler } = useLayoutStore();
+  const { setBreadcrumb, errorHandler, theme } = useLayoutStore();
 
   const [listTotal, setListTotal] = useState<DocumentData>();
   const [loadingListTotal, setLoadingListTotal] = useState<boolean>(false);
@@ -40,6 +40,9 @@ const Home = () => {
     },
     xaxis: {
       categories: dataChart?.map((item) => item.month),
+    },
+    theme: {
+      mode: theme,
     },
   };
 
@@ -126,10 +129,12 @@ const Home = () => {
         />
       </div>
 
-      <div className="flex w-full flex-row rounded-lg bg-white shadow-md">
+      <div className="flex w-full flex-row rounded-lg bg-white shadow-md dark:bg-slate-950">
         <div className="flex w-[75%] flex-col gap-2 border-r px-8 py-6">
-          <span className="text-xl font-bold">Tickets Graph</span>
-          <span className="text-sm text-slate-500">
+          <span className="text-xl font-bold dark:text-sky-500">
+            Tickets Graph
+          </span>
+          <span className="text-sm text-slate-500 dark:text-slate-400">
             Last updated in 99 December 2099 10:15:20
           </span>
 
@@ -143,16 +148,28 @@ const Home = () => {
 
         <div className="grid-row-3 grid w-[25%] py-8">
           <div className="flex flex-col items-center justify-center gap-4 border-b p-4">
-            <span className="font-semibold text-slate-500">Total High</span>
-            <span className="text-3xl font-bold">{totalDataChart?.high}</span>
+            <span className="font-semibold text-slate-500 dark:text-slate-400">
+              Total High
+            </span>
+            <span className="text-3xl font-bold dark:text-sky-500">
+              {totalDataChart?.high}
+            </span>
           </div>
           <div className="flex flex-col items-center justify-center gap-4 border-b p-4">
-            <span className="font-semibold text-slate-500">Total Medium</span>
-            <span className="text-3xl font-bold">{totalDataChart?.normal}</span>
+            <span className="font-semibold text-slate-500 dark:text-slate-400">
+              Total Medium
+            </span>
+            <span className="text-3xl font-bold dark:text-sky-500">
+              {totalDataChart?.normal}
+            </span>
           </div>
           <div className="flex flex-col items-center justify-center gap-4 p-4">
-            <span className="font-semibold text-slate-500">Total Low</span>
-            <span className="text-3xl font-bold">{totalDataChart?.low}</span>
+            <span className="font-semibold text-slate-500 dark:text-slate-400">
+              Total Low
+            </span>
+            <span className="text-3xl font-bold dark:text-sky-500">
+              {totalDataChart?.low}
+            </span>
           </div>
         </div>
       </div>

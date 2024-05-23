@@ -94,7 +94,7 @@ const AddTask: FC<AddTaskType> = ({ onSuccessAdd }) => {
       </Button>
 
       <Modal isOpen={isAddTask}>
-        <h1 className="text-xl font-bold">Add Task</h1>
+        <h1 className="text-xl font-bold dark:text-white">Add Task</h1>
 
         <form
           className="flex flex-col gap-4"

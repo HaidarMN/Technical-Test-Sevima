@@ -11,7 +11,7 @@ const Button: FC<ButtonType> = ({
   return (
     <button
       type={type}
-      className={`flex flex-row items-center gap-2 rounded-md border border-slate-950 px-4 py-2 font-medium transition-all ease-in-out disabled:cursor-not-allowed disabled:border-slate-700 disabled:bg-slate-700 ${primary ? "bg-slate-950 text-white" : "bg-white text-slate-950"}`}
+      className={`flex flex-row items-center gap-2 rounded-md border border-slate-950 px-4 py-2 font-medium transition-all ease-in-out disabled:cursor-not-allowed disabled:border-slate-700 disabled:bg-slate-700 dark:border-sky-500 ${primary ? "bg-slate-950 text-white dark:bg-sky-500" : "text-slate-950 dark:text-sky-500"}`}
       onClick={onClick}
       disabled={isLoading}
     >

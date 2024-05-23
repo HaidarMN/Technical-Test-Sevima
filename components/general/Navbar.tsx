@@ -43,8 +43,8 @@ const Navbar: FC<NavbarType> = ({ title }) => {
   };
 
   return (
-    <div className="flex w-full flex-row items-center justify-between bg-white px-4 py-4 md:px-6 lg:px-8">
-      <h1 className="text-2xl font-bold">{title}</h1>
+    <div className="flex w-full flex-row items-center justify-between bg-white px-4 py-4 md:px-6 lg:px-8 dark:bg-slate-950">
+      <h1 className="text-2xl font-bold dark:text-sky-500">{title}</h1>
 
       <div className="grid grid-cols-2 divide-x-2">
         <div className="flex flex-row items-center gap-4 pr-4">
@@ -61,10 +61,10 @@ const Navbar: FC<NavbarType> = ({ title }) => {
               className="relative cursor-pointer"
               onClick={() => setOpenNotif(true)}
             >
-              <IoIosNotifications className=" text-2xl" />
+              <IoIosNotifications className="text-2xl dark:text-sky-500" />
               <span className="absolute right-1 top-0 flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-500"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75 dark:bg-slate-400"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-500 dark:bg-slate-500"></span>
               </span>
             </div>
 
@@ -94,7 +94,7 @@ const Navbar: FC<NavbarType> = ({ title }) => {
         </div>
 
         <div className="flex flex-row items-center gap-4 pl-4">
-          <div>{user.email}</div>
+          <span className="dark:text-sky-500">{user.email}</span>
 
           <div className="relative">
             <div

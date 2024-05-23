@@ -12,7 +12,7 @@ import Alert from "@/components/global/popUp/Alert";
 import { useRouter } from "next/router";
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const { is_loading, alert_option } = useLayoutStore();
+  const { is_loading, alert_option, getTheme } = useLayoutStore();
   const { getAuth } = useAuthStore();
   // const router = useRouter();
 
@@ -30,6 +30,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     //     });
     //     router.push("/auth/login");
     //   }
+    getTheme();
     const theme = Cookies.get("theme");
     var root = document.getElementsByTagName("html")[0];
     theme === "dark"

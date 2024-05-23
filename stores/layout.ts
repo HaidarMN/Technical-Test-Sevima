@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import Cookies from "js-cookie";
 
 type LayoutStore = {
   is_loading: boolean;
@@ -9,6 +10,7 @@ type LayoutStore = {
     message: any;
     show: boolean;
   };
+  theme: "light" | "dark" | undefined;
 };
 
 type LayoutStoreFunc = {
@@ -21,6 +23,7 @@ type LayoutStoreFunc = {
     show: boolean;
   }) => void;
   errorHandler: (val: any) => void;
+  getTheme: () => void;
 };
 
 export const useLayoutStore = create<LayoutStore & LayoutStoreFunc>(
@@ -34,6 +37,7 @@ export const useLayoutStore = create<LayoutStore & LayoutStoreFunc>(
       message: "",
       show: false,
     },
+    theme: "light",
 
     // Function
     setIsLoading: (val: boolean) => set(() => ({ is_loading: val })),
@@ -97,6 +101,12 @@ export const useLayoutStore = create<LayoutStore & LayoutStoreFunc>(
           show: true,
         });
       }
+    },
+
+    getTheme: () => {
+      set(() => ({
+        theme: Cookies.get("theme") as "light" | "dark" | undefined,
+      }));
     },
   }),
 );

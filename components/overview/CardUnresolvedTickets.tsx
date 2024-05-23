@@ -62,47 +62,49 @@ const CardUnresolvedTicket = () => {
   }, []);
 
   return (
-    <div className="flex w-full flex-col gap-4 rounded-lg bg-white shadow-md">
+    <div className="flex w-full flex-col gap-4 rounded-lg bg-white shadow-md dark:bg-slate-950">
       <div className="flex w-full flex-row items-start justify-between px-8 pt-6">
-        <span className="text-xl font-bold">Unresolved Tickets</span>
+        <span className="text-xl font-bold dark:text-sky-500">
+          Unresolved Tickets
+        </span>
         <Link
           href="/tickets?status=pending"
-          className="font-semibold text-blue-500 underline-offset-2 hover:underline"
+          className="font-semibold text-blue-500 underline-offset-2 hover:underline dark:text-white"
         >
           View details
         </Link>
       </div>
 
-      <div className="mb-4 grid grid-cols-1 divide-y">
+      <div className="mb-4 grid grid-cols-1 divide-y dark:divide-slate-400">
         <div className="flex flex-row items-center justify-between px-8 py-4">
           <Link
             href="/tickets?priority=high&status=pending"
-            className="font-semibold text-blue-500 decoration-slate-500 underline-offset-2 hover:underline"
+            className="font-semibold text-blue-500 underline-offset-2 hover:underline dark:text-white"
             title="Unresolved High"
           >
             High
           </Link>
-          <span>{totalItem?.high}</span>
+          <span className="dark:text-slate-400">{totalItem?.high}</span>
         </div>
         <div className="flex flex-row items-center justify-between px-8 py-4">
           <Link
             href="/tickets?priority=medium&status=pending"
-            className="font-semibold text-blue-500 decoration-slate-500 underline-offset-2 hover:underline"
+            className="font-semibold text-blue-500 decoration-slate-500 underline-offset-2 hover:underline dark:text-white"
             title="Unresolved Medium"
           >
             Medium
           </Link>
-          <span>{totalItem?.medium}</span>
+          <span className="dark:text-slate-400">{totalItem?.medium}</span>
         </div>
         <div className="flex flex-row items-center justify-between px-8 py-4">
           <Link
             href="/tickets?priority=low&status=pending"
-            className="font-semibold text-blue-500 decoration-slate-500 underline-offset-2 hover:underline"
+            className="font-semibold text-blue-500 decoration-slate-500 underline-offset-2 hover:underline dark:text-white"
             title="Unresolved Low"
           >
             Low
           </Link>
-          <span>{totalItem?.low}</span>
+          <span className="dark:text-slate-400">{totalItem?.low}</span>
         </div>
       </div>
     </div>

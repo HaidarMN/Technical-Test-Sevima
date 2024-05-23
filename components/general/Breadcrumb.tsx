@@ -22,7 +22,7 @@ const Breadcrumb = () => {
           <Link
             href={val.path}
             key={index}
-            className="text-sm font-bold text-slate-950"
+            className="text-sm font-bold text-slate-950 dark:text-sky-500"
           >
             {val.label}
           </Link>
@@ -31,11 +31,11 @@ const Breadcrumb = () => {
             <Link
               href={val.path}
               key={index}
-              className={`text-sm ${index + 1 === breadcrumbs.length ? "font-bold text-slate-950" : "text-slate-700"}`}
+              className={`text-sm ${index + 1 === breadcrumbs.length ? "font-bold text-slate-950 dark:text-sky-500" : "text-slate-700 dark:text-slate-400"}`}
             >
               {val.label}
             </Link>
-            <span>/</span>
+            <span className="text-slate-700 dark:text-slate-400">/</span>
           </>
         ),
       )}

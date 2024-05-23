@@ -29,7 +29,7 @@ const InputSelect: FC<SelectInputType> = ({
     <div className="flex flex-col items-start gap-1">
       <label
         htmlFor={name}
-        className="flex flex-row items-start gap-1 text-sm text-slate-950"
+        className="flex flex-row items-start gap-1 text-sm text-slate-950 dark:text-white"
       >
         {primary && <strong className="text-red-600">*</strong>}
         {label}

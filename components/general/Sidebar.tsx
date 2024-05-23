@@ -71,9 +71,11 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <aside className="fixed z-20 flex h-screen w-16 flex-col justify-between overflow-y-auto overflow-x-hidden bg-white px-2 py-4 transition-all lg:w-60 lg:px-6 lg:py-8">
+    <aside className="fixed z-20 flex h-screen w-16 flex-col justify-between overflow-y-auto overflow-x-hidden bg-white px-2 py-4 transition-all lg:w-60 lg:px-6 lg:py-8 dark:bg-slate-950">
       <div className="flex flex-col items-center gap-8 lg:items-start">
-        <h1 className="hidden text-lg font-bold lg:block">DASHBOARD KIT</h1>
+        <h1 className="hidden text-lg font-bold lg:block dark:text-sky-500">
+          DASHBOARD KIT
+        </h1>
         <h1 className="text-2xl font-bold text-teal-300 lg:hidden">L</h1>
 
         <ul className="w-full space-y-2">
@@ -81,7 +83,7 @@ const Sidebar = () => {
             <li key={index}>
               <Link
                 href={val.path}
-                className={`flex w-full flex-row items-center justify-center gap-4 px-2 py-2 text-xl lg:justify-normal lg:px-4 lg:text-base ${pathname === val.path ? "rounded-lg bg-slate-950 font-medium text-white" : "hover:text-sky-500"}`}
+                className={`flex w-full flex-row items-center justify-center gap-4 px-2 py-2 text-xl lg:justify-normal lg:px-4 lg:text-base ${pathname === val.path ? "rounded-lg bg-slate-950 font-medium text-white dark:bg-sky-500" : "hover:text-sky-500 dark:text-sky-500 dark:hover:text-slate-500"}`}
               >
                 {val.icon}
                 <span className="hidden lg:block">{val.label}</span>
@@ -106,9 +108,9 @@ const Sidebar = () => {
                 className="fixed inset-0 z-10 h-full w-full"
                 onClick={() => setIsOpenLanguage(false)}
               ></div>
-              <div className="absolute -top-16 left-0 z-20 flex min-w-max flex-row items-center rounded-lg border border-slate-300 bg-white shadow-md">
+              <div className="absolute -top-16 left-0 z-20 flex min-w-max flex-row items-center rounded-lg border border-slate-300 bg-white shadow-md dark:border-sky-500 dark:bg-sky-500">
                 <div
-                  className={`cursor-pointer p-2 ${currentLanguage.name === "indonesia" && "rounded-l-lg bg-slate-100"}`}
+                  className={`cursor-pointer p-2 ${currentLanguage.name === "indonesia" && "rounded-l-lg bg-slate-200 dark:bg-slate-950"}`}
                   onClick={() =>
                     onChangeLanguage("indonesia", <IndonesiaFlag />)
                   }
@@ -116,7 +118,7 @@ const Sidebar = () => {
                   <IndonesiaFlag />
                 </div>
                 <div
-                  className={`cursor-pointer p-2 ${currentLanguage.name === "english" && "rounded-r-lg bg-slate-100"}`}
+                  className={`cursor-pointer p-2 ${currentLanguage.name === "english" && "rounded-r-lg bg-slate-200 dark:bg-slate-950"}`}
                   onClick={() => onChangeLanguage("english", <EnglishFlag />)}
                 >
                   <EnglishFlag />
@@ -128,7 +130,7 @@ const Sidebar = () => {
 
         <div className="relative">
           <div
-            className="flex cursor-pointer flex-row items-center gap-2 text-2xl"
+            className="flex cursor-pointer flex-row items-center gap-2 text-2xl dark:text-sky-500"
             onClick={() => setIsOpenTheme(true)}
           >
             {currentTheme?.logo}
@@ -140,15 +142,15 @@ const Sidebar = () => {
                 className="fixed inset-0 z-10 h-full w-full"
                 onClick={() => setIsOpenTheme(false)}
               ></div>
-              <div className="absolute -top-14 right-0 z-20 flex min-w-max flex-row items-center rounded-lg border border-slate-300 bg-white shadow-md">
+              <div className="absolute -top-14 right-0 z-20 flex min-w-max flex-row items-center rounded-lg border border-slate-300 bg-white shadow-md dark:border-sky-500 dark:bg-sky-500 dark:text-white">
                 <div
-                  className={`cursor-pointer p-2 text-xl ${currentTheme.name === "light" && "rounded-l-lg bg-slate-100"}`}
+                  className={`cursor-pointer p-2 text-xl ${currentTheme.name === "light" && "rounded-l-lg bg-slate-200 dark:bg-slate-950"}`}
                   onClick={() => onChangeTheme("light", <FaSun />)}
                 >
                   <FaSun />
                 </div>
                 <div
-                  className={`cursor-pointer p-2 text-xl ${currentTheme.name === "dark" && "rounded-r-lg bg-slate-100"}`}
+                  className={`cursor-pointer p-2 text-xl ${currentTheme.name === "dark" && "rounded-r-lg bg-slate-200 dark:bg-slate-950"}`}
                   onClick={() => onChangeTheme("dark", <FaMoon />)}
                 >
                   <FaMoon />

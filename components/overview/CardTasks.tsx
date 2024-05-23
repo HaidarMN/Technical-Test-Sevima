@@ -140,7 +140,7 @@ const CardTask = () => {
       case "delegate":
         return "bg-blue-500";
       default:
-        return "bg-slate-300";
+        return "bg-slate-400";
     }
   };
 
@@ -149,13 +149,13 @@ const CardTask = () => {
   }, []);
 
   return (
-    <div className="flex w-full flex-col gap-4 rounded-lg bg-white shadow-md">
+    <div className="flex w-full flex-col gap-4 rounded-lg bg-white shadow-md dark:bg-slate-950">
       <div className="flex w-full flex-row items-start justify-between px-8 pt-6">
-        <span className="text-xl font-bold">Tasks</span>
+        <span className="text-xl font-bold dark:text-sky-500">Tasks</span>
 
         <div className="relative">
           <GoKebabHorizontal
-            className="rotate-90 cursor-pointer text-xl"
+            className="rotate-90 cursor-pointer text-xl dark:text-white"
             onClick={() => setOpenMenu(true)}
           />
           {openMenu && (
@@ -164,19 +164,19 @@ const CardTask = () => {
                 className="fixed inset-0 z-10 h-full w-full"
                 onClick={() => setOpenMenu(false)}
               ></div>
-              <div className="absolute right-0 top-6 z-20 grid w-40 grid-cols-1 divide-y rounded-lg border border-slate-300 bg-white shadow-md">
+              <div className="absolute right-0 top-6 z-20 grid w-40 grid-cols-1 divide-y rounded-lg border border-slate-300 bg-white shadow-md dark:border-sky-500 dark:bg-sky-500">
                 <span
                   onClick={() => {
                     setIsAddTask(true);
                     setOpenMenu(false);
                   }}
-                  className="cursor-pointer px-4 py-2"
+                  className="cursor-pointer px-4 py-2 dark:text-white"
                 >
                   Create Task
                 </span>
                 <span
                   onClick={() => router.push("/tasks")}
-                  className="cursor-pointer px-4 py-2"
+                  className="cursor-pointer px-4 py-2 dark:text-white"
                 >
                   View all
                 </span>
@@ -186,7 +186,7 @@ const CardTask = () => {
         </div>
       </div>
 
-      <div className="mb-4 grid grid-cols-1 divide-y">
+      <div className="mb-4 grid grid-cols-1 divide-y dark:divide-slate-400">
         {data.map((item) => (
           <div
             className="flex flex-row items-center justify-between px-8 py-4"
@@ -196,13 +196,13 @@ const CardTask = () => {
               <input
                 type="checkbox"
                 name={`task ${item.id}`}
-                className="h-5 w-5 rounded-full border border-slate-950 text-slate-950 focus:!ring-2 focus:!ring-slate-950"
+                className="h-5 w-5 rounded-full border border-slate-950 text-slate-950 focus:!ring-2 focus:!ring-slate-950 dark:border-sky-500 dark:text-sky-500 dark:focus:ring-sky-500"
                 onChange={() => updateStatusTask(item.id)}
                 checked={item.status}
               />
               <Link
                 href={`/tasks?search=${item.title}`}
-                className="font-semibold text-blue-500 decoration-slate-500 underline-offset-2 hover:underline"
+                className="font-semibold text-blue-500 underline-offset-2 hover:underline dark:text-white"
                 title={item.title}
               >
                 {item.title}
@@ -218,7 +218,7 @@ const CardTask = () => {
       </div>
 
       <Modal isOpen={isAddTask}>
-        <h1 className="text-xl font-bold">Create Task</h1>
+        <h1 className="text-xl font-bold dark:text-white">Create Task</h1>
 
         <form
           className="flex flex-col gap-4"

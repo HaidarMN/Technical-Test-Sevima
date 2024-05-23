@@ -94,7 +94,7 @@ const AddTicket: FC<AddTicketType> = ({ onSuccessAdd }) => {
       </Button>
 
       <Modal isOpen={isAddTicket}>
-        <h1 className="text-xl font-bold">Add Ticket</h1>
+        <h1 className="text-xl font-bold dark:text-white">Add Ticket</h1>
 
         <form
           className="flex flex-col gap-4"

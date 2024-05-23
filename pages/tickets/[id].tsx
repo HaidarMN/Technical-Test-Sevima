@@ -101,7 +101,7 @@ const DetailTicket = () => {
       case "approved":
         return "bg-green-500";
       default:
-        return "bg-slate-300";
+        return "bg-slate-400";
     }
   };
 
@@ -112,23 +112,23 @@ const DetailTicket = () => {
 
   return (
     <MainLayout title="Detail Tickets">
-      <div className="flex w-full flex-col gap-4 rounded-lg bg-white px-8 py-6 shadow-md">
+      <div className="flex w-full flex-col gap-4 rounded-lg bg-white px-8 py-6 shadow-md dark:bg-slate-950">
         <div className="flex w-full flex-row items-center justify-between">
-          <h2 className="text-xl font-bold">{data.title}</h2>
+          <h2 className="text-xl font-bold dark:text-sky-500">{data.title}</h2>
           <Button onClick={() => router.back()}>Back</Button>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-1">
-            <h3 className="font-bold">Customer Name</h3>
-            <span>{data.customer_name}</span>
+            <h3 className="font-bold dark:text-sky-500">Customer Name</h3>
+            <span className="dark:text-slate-400">{data.customer_name}</span>
           </div>
           <div className="flex flex-col gap-1">
-            <h3 className="font-bold">Created At</h3>
-            <span>{data.created_at}</span>
+            <h3 className="font-bold dark:text-sky-500">Created At</h3>
+            <span className="dark:text-slate-400">{data.created_at}</span>
           </div>
           <div className="flex flex-col gap-1">
-            <h3 className="font-bold">Priority</h3>
+            <h3 className="font-bold dark:text-sky-500">Priority</h3>
             <span
               className={`w-fit rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getPriorityStyle(data.priority)}`}
             >
@@ -136,7 +136,7 @@ const DetailTicket = () => {
             </span>
           </div>
           <div className="flex flex-col gap-1">
-            <h3 className="font-bold">Status</h3>
+            <h3 className="font-bold dark:text-sky-500">Status</h3>
             <span
               className={`w-fit rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getStatusStyle(data.status)}`}
             >
