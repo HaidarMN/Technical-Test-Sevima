@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useAuthStore } from "@/stores/auth";
 
 import { MdExitToApp, MdTask } from "react-icons/md";
-import { FaChartPie } from "react-icons/fa6";
+import { FaChartPie, FaTicketSimple } from "react-icons/fa6";
 
 const Sidebar = () => {
   const router = useRouter();
@@ -16,6 +16,7 @@ const Sidebar = () => {
   const list_menu = [
     { label: "Overview", path: "/", icon: <FaChartPie /> },
     { label: "Tasks", path: "/tasks", icon: <MdTask /> },
+    { label: "Tickets", path: "/tickets", icon: <FaTicketSimple /> },
   ];
 
   // Function

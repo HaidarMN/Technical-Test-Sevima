@@ -24,18 +24,19 @@ import InputSelect from "../global/input/Select";
 import InputText from "../global/input/Text";
 import Modal from "../global/popUp/Modal";
 
-import { CreateTasksType } from "@/src/types";
+import { CreateTicketType } from "@/src/types";
 
-type AddTaskType = {
+type AddTicketType = {
   onSuccessAdd: () => void;
 };
 
 const validationSchema = yup.object({
-  title: yup.string().required().label("Title Task"),
-  priority: yup.string().required().label("Priority Task"),
+  title: yup.string().required().label("Title Ticket"),
+  customer_name: yup.string().required().label("Customer Name"),
+  priority: yup.string().required().label("Priority Ticket"),
 });
 
-const AddTask: FC<AddTaskType> = ({ onSuccessAdd }) => {
+const AddTicket: FC<AddTicketType> = ({ onSuccessAdd }) => {
   const {
     control,
     handleSubmit,
@@ -47,80 +48,87 @@ const AddTask: FC<AddTaskType> = ({ onSuccessAdd }) => {
 
   const { errorHandler, setAlert } = useLayoutStore();
 
-  const [isAddTask, setIsAddTask] = useState<boolean>(false);
-  const [loadingCreateTask, setLoadingCreateTask] = useState<boolean>(false);
+  const [isAddTicket, setIsAddTicket] = useState<boolean>(false);
+  const [loadingCreateTicket, setLoadingCreateTicket] =
+    useState<boolean>(false);
 
-  const priorityTaskOptions = [
-    { value: "urgent", label: "Urgent" },
-    { value: "schedule", label: "Schedule" },
-    { value: "delegate", label: "Delegate" },
-    { value: "normal", label: "Normal" },
+  const priorityTicketOptions = [
+    { value: "high", label: "High" },
+    { value: "medium", label: "Medium" },
+    { value: "low", label: "Low" },
   ];
 
-  const onCloseModalCreateTask = () => {
-    setIsAddTask(false);
+  const onCloseModalCreateTicket = () => {
+    setIsAddTicket(false);
     reset();
   };
 
-  const createTask = async (value: CreateTasksType) => {
+  const createTicket = async (value: CreateTicketType) => {
     try {
-      setLoadingCreateTask(true);
-      await addDoc(collection(firestoreDB, "tasks"), {
+      setLoadingCreateTicket(true);
+      await addDoc(collection(firestoreDB, "tickets"), {
         ...value,
-        low_title: value.title.toLowerCase(),
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),
-        done: false,
+        status: "pending",
       });
       onSuccessAdd();
       setAlert({
         type: "success",
-        title: "Task Created",
-        message: "Succesfully created task",
+        title: "Ticket Created",
+        message: "Succesfully created Ticket",
         show: true,
       });
-      onCloseModalCreateTask();
+      onCloseModalCreateTicket();
     } catch (error) {
       errorHandler(error);
     } finally {
-      setLoadingCreateTask(false);
+      setLoadingCreateTicket(false);
     }
   };
 
   return (
     <>
-      <Button primary onClick={() => setIsAddTask(true)}>
-        Add Task
+      <Button primary onClick={() => setIsAddTicket(true)}>
+        Add Ticket
       </Button>
 
-      <Modal isOpen={isAddTask}>
-        <h1 className="text-xl font-bold">Add Task</h1>
+      <Modal isOpen={isAddTicket}>
+        <h1 className="text-xl font-bold">Add Ticket</h1>
 
         <form
           className="flex flex-col gap-4"
-          onSubmit={handleSubmit(createTask)}
+          onSubmit={handleSubmit(createTicket)}
         >
           <InputText
             name="title"
             control={control}
-            label="Title Task"
-            placeholder="Add some title"
+            label="Title Ticket"
+            placeholder="Add title"
+            error={errors.title?.message}
+            primary
+          />
+          <InputText
+            name="customer_name"
+            control={control}
+            label="Customer Name"
+            placeholder="Add customer name"
             error={errors.title?.message}
             primary
           />
           <InputSelect
             name="priority"
             control={control}
-            label="Priority Task"
+            label="Priority Ticket"
             placeholder="Choose the priority"
             error={errors.priority?.message}
             primary
-            options={priorityTaskOptions}
+            options={priorityTicketOptions}
           />
 
           <div className="flex w-full flex-row items-center justify-end gap-2">
-            <Button onClick={onCloseModalCreateTask}>Cancel</Button>
-            <Button type="submit" primary isLoading={loadingCreateTask}>
+            <Button onClick={onCloseModalCreateTicket}>Cancel</Button>
+            <Button type="submit" primary isLoading={loadingCreateTicket}>
               Create
             </Button>
           </div>
@@ -130,4 +138,4 @@ const AddTask: FC<AddTaskType> = ({ onSuccessAdd }) => {
   );
 };
 
-export default AddTask;
+export default AddTicket;

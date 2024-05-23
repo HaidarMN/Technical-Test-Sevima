@@ -27,7 +27,6 @@ import Button from "@/components/global/button";
 import InputSelect from "@/components/global/input/Select";
 
 import { CreateTasksType, FirestoreParams } from "@/src/types";
-import Spinner from "../global/loader/Spinner";
 import { GoKebabHorizontal } from "react-icons/go";
 
 const validationSchema = yup.object({
@@ -51,7 +50,6 @@ const CardTask = () => {
   const [isAddTask, setIsAddTask] = useState<boolean>(false);
   const [loadingCreateTask, setLoadingCreateTask] = useState<boolean>(false);
   const [data, setData] = useState<FirestoreParams[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
   const priorityTaskOptions = [
@@ -68,11 +66,10 @@ const CardTask = () => {
 
   const getData = async () => {
     try {
-      setIsLoading(true);
       const q = query(
         collection(firestoreDB, "tasks"),
         orderBy("created_at", "desc"),
-        limit(5),
+        limit(3),
       );
       const response = await getDocs(q);
       setData(
@@ -85,8 +82,6 @@ const CardTask = () => {
       );
     } catch (error) {
       errorHandler(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -191,40 +186,36 @@ const CardTask = () => {
         </div>
       </div>
 
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <div className="mb-4 grid grid-cols-1 divide-y">
-          {data.map((item) => (
-            <div
-              className="flex flex-row items-center justify-between px-8 py-4"
-              key={item.id}
-            >
-              <div className="flex flex-row items-center gap-2">
-                <input
-                  type="checkbox"
-                  name={`task ${item.id}`}
-                  className="h-5 w-5 rounded-full border border-slate-950 text-slate-950 focus:!ring-2 focus:!ring-slate-950"
-                  onChange={() => updateStatusTask(item.id)}
-                  checked={item.status}
-                />
-                <Link
-                  href={`/tasks?search=${item.title}`}
-                  className="font-semibold text-slate-500 decoration-slate-500 underline-offset-2 hover:underline"
-                  title={item.title}
-                >
-                  {item.title}
-                </Link>
-              </div>
-              <span
-                className={`rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getPriorityStyle(item.priority)}`}
+      <div className="mb-4 grid grid-cols-1 divide-y">
+        {data.map((item) => (
+          <div
+            className="flex flex-row items-center justify-between px-8 py-4"
+            key={item.id}
+          >
+            <div className="flex flex-row items-center gap-2">
+              <input
+                type="checkbox"
+                name={`task ${item.id}`}
+                className="h-5 w-5 rounded-full border border-slate-950 text-slate-950 focus:!ring-2 focus:!ring-slate-950"
+                onChange={() => updateStatusTask(item.id)}
+                checked={item.status}
+              />
+              <Link
+                href={`/tasks?search=${item.title}`}
+                className="font-semibold text-blue-500 decoration-slate-500 underline-offset-2 hover:underline"
+                title={item.title}
               >
-                {item.priority}
-              </span>
+                {item.title}
+              </Link>
             </div>
-          ))}
-        </div>
-      )}
+            <span
+              className={`rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getPriorityStyle(item.priority)}`}
+            >
+              {item.priority}
+            </span>
+          </div>
+        ))}
+      </div>
 
       <Modal isOpen={isAddTask}>
         <h1 className="text-xl font-bold">Create Task</h1>

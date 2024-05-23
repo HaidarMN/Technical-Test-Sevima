@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import MainLayout from "@/layouts/MainLayout";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { useLayoutStore } from "@/stores/layout";
 
 import {
@@ -16,6 +15,7 @@ import { firestoreDB } from "@/src/plugins/firebase";
 import CardTotal from "@/components/overview/CardTotal";
 import CardTask from "@/components/overview/CardTasks";
 import { FirestoreParams } from "@/src/types";
+import CardUnresolvedTicket from "@/components/overview/CardUnresolvedTickets";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -49,7 +49,7 @@ const Home = () => {
       data: dataChart?.map((item) => item.high) as number[],
     },
     {
-      name: "Normal",
+      name: "Medium",
       data: dataChart?.map((item) => item.normal) as number[],
     },
     {
@@ -147,7 +147,7 @@ const Home = () => {
             <span className="text-3xl font-bold">{totalDataChart?.high}</span>
           </div>
           <div className="flex flex-col items-center justify-center gap-4 border-b p-4">
-            <span className="font-semibold text-slate-500">Total Normal</span>
+            <span className="font-semibold text-slate-500">Total Medium</span>
             <span className="text-3xl font-bold">{totalDataChart?.normal}</span>
           </div>
           <div className="flex flex-col items-center justify-center gap-4 p-4">
@@ -158,17 +158,7 @@ const Home = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-6">
-        <div className="flex w-full flex-col rounded-lg bg-white px-8 py-6 shadow-md">
-          <div className="flex w-full flex-row items-start justify-between">
-            <span className="text-xl font-bold">Unresolved Tickets</span>
-            <Link
-              href="/unresolved-tickets"
-              className="font-semibold text-blue-500 underline-offset-2 hover:underline"
-            >
-              View details
-            </Link>
-          </div>
-        </div>
+        <CardUnresolvedTicket />
         <CardTask />
       </div>
     </MainLayout>

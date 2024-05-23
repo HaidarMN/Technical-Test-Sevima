@@ -27,13 +27,16 @@ const Breadcrumb = () => {
             {val.label}
           </Link>
         ) : (
-          <Link
-            href={val.path}
-            key={index}
-            className={`text-sm ${index + 1 === breadcrumbs.length ? "font-bold text-slate-950" : "text-slate-700"}`}
-          >
-            {val.label} |
-          </Link>
+          <>
+            <Link
+              href={val.path}
+              key={index}
+              className={`text-sm ${index + 1 === breadcrumbs.length ? "font-bold text-slate-950" : "text-slate-700"}`}
+            >
+              {val.label}
+            </Link>
+            <span>/</span>
+          </>
         ),
       )}
     </div>

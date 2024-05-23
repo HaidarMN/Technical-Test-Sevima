@@ -85,9 +85,10 @@ const Tasks = () => {
         response.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-          created_at: moment(doc.data().created_at.nanoseconds).format(
-            "MMMM Do YYYY, h:mm:ss a",
-          ),
+          created_at: moment(
+            doc.data().created_at.seconds * 1000 +
+              doc.data().created_at.nanoseconds / 1000000,
+          ).format("D MMMM YYYY, HH:mm:ss"),
         })),
       );
     } catch (error) {
@@ -206,23 +207,23 @@ const Tasks = () => {
         </div>
 
         <div className="mb-4 grid grid-cols-1 divide-y">
-          <table>
+          <table className="table-auto">
             <thead>
               <tr className="border-b-2 text-left">
-                <th className="p-4 pl-0"></th>
+                <th className="p-4 pl-2"></th>
                 <th className="p-4">Title</th>
                 <th className="p-4">Created at</th>
-                <th className="p-4 pr-0">Priority</th>
+                <th className="p-4 pr-2">Priority</th>
               </tr>
             </thead>
 
             <tbody>
               {data.map((item, index) => (
                 <tr
-                  className={index === data.length - 1 ? "" : "border-b"}
+                  className={`hover:bg-slate-50 ${index === data.length - 1 ? "" : "border-b"}`}
                   key={item.id}
                 >
-                  <td className="p-4 pl-0">
+                  <td className="p-4 pl-2">
                     <input
                       type="checkbox"
                       name={`task ${item.id}`}
@@ -233,7 +234,7 @@ const Tasks = () => {
                   </td>
                   <td className="p-4">{item.title}</td>
                   <td className="p-4">{item.created_at}</td>
-                  <td className="p-4 pr-0">
+                  <td className="p-4 pr-2">
                     <span
                       className={`w-fit rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getPriorityStyle(item.priority)}`}
                     >

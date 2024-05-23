@@ -1,5 +1,6 @@
 export * from "./overview";
 export * from "./tasks";
+export * from "./tickets";
 
 export type FirestoreParams = {
   id: string;

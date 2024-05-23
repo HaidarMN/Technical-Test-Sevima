@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply overflow-y-auto overflow-x-hidden bg-slate-300;
+    @apply overflow-y-auto overflow-x-hidden bg-slate-100;
   }
 
   input {
