@@ -25,10 +25,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FaFilter } from "react-icons/fa";
 import InputSelect from "@/components/global/input/Select";
 import { FirestoreParams } from "@/src/types";
+import AddTask from "@/components/tasks/AddTask";
 
 const validationSchema = yup.object({
-  priority: yup.string().required().label("Priority Task"),
-  status: yup.string().required().label("Title Task"),
+  priority: yup.string().nullable(),
+  status: yup.string().nullable(),
 });
 
 const Tasks = () => {
@@ -60,11 +61,13 @@ const Tasks = () => {
 
       if (priority) {
         constraints.push(where("priority", "==", priority));
+        setValue("priority", priority as string);
       }
       if (status) {
         constraints.push(
           where("status", "==", status === "done" ? true : false),
         );
+        setValue("status", status as string);
       }
       if (search) {
         const stringSearch = search as string;
@@ -155,42 +158,50 @@ const Tasks = () => {
   return (
     <MainLayout title="List Tasks">
       <div className="flex w-full flex-col gap-4 rounded-lg bg-white px-8 py-6 shadow-md">
-        <div className="flex flex-row items-center justify-end gap-4">
-          <div className="relative">
-            <div
-              className="flex cursor-pointer flex-row items-center gap-2"
-              onClick={() => setOpenFilter(true)}
-            >
-              <FaFilter />
-              Filter
-            </div>
+        <div className="flex flex-row items-center justify-between gap-4">
+          <div className="flex flex-col">
+            <h1 className="text-lg font-bold">All Tasks</h1>
+            <span className="text-sm text-slate-500">Total {data.length}</span>
+          </div>
 
-            {openFilter && (
-              <>
-                <div
-                  className="fixed inset-0 z-10 h-full w-full"
-                  onClick={() => setOpenFilter(false)}
-                ></div>
-                <div className="absolute right-0 top-8 z-20 flex min-w-max flex-col gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 shadow-md">
-                  <InputSelect
-                    name="priority"
-                    label="Priority"
-                    placeholder="Select priority"
-                    control={control}
-                    options={priorityFilterOptions}
-                    passValue={onFilterPriority}
-                  />
-                  <InputSelect
-                    name="status"
-                    label="Status"
-                    placeholder="Select status"
-                    control={control}
-                    options={statusFilterOptions}
-                    passValue={onFilterStatus}
-                  />
-                </div>
-              </>
-            )}
+          <div className="flex flex-row items-center gap-4">
+            <div className="relative">
+              <div
+                className="flex cursor-pointer flex-row items-center gap-2"
+                onClick={() => setOpenFilter(true)}
+              >
+                <FaFilter />
+                Filter
+              </div>
+
+              {openFilter && (
+                <>
+                  <div
+                    className="fixed inset-0 z-10 h-full w-full"
+                    onClick={() => setOpenFilter(false)}
+                  ></div>
+                  <div className="absolute right-0 top-8 z-20 flex min-w-max flex-col gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 shadow-md">
+                    <InputSelect
+                      name="priority"
+                      label="Priority"
+                      placeholder="Select priority"
+                      control={control}
+                      options={priorityFilterOptions}
+                      passValue={onFilterPriority}
+                    />
+                    <InputSelect
+                      name="status"
+                      label="Status"
+                      placeholder="Select status"
+                      control={control}
+                      options={statusFilterOptions}
+                      passValue={onFilterStatus}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+            <AddTask onSuccessAdd={getData} />
           </div>
         </div>
 
