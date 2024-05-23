@@ -117,10 +117,12 @@ const CardTask = () => {
   const updateDoneTask = async (id: string) => {
     try {
       const isDone = await getDoc(doc(firestoreDB, "tasks", id));
-      await updateDoc(doc(firestoreDB, "tasks", id), {
-        done: !isDone.data().done,
-        updated_at: serverTimestamp(),
-      });
+
+      isDone.exists() &&
+        (await updateDoc(doc(firestoreDB, "tasks", id), {
+          done: !isDone.data().done,
+          updated_at: serverTimestamp(),
+        }));
       await getData();
       setAlert({
         type: "success",
@@ -193,13 +195,16 @@ const CardTask = () => {
       ) : (
         <div className="mb-4 grid grid-cols-1 divide-y">
           {data.map((item) => (
-            <div className="flex flex-row items-center justify-between px-8 py-4">
+            <div
+              className="flex flex-row items-center justify-between px-8 py-4"
+              key={item.id}
+            >
               <div className="flex flex-row items-center gap-2">
                 <input
                   type="checkbox"
                   name={`task ${item.id}`}
                   className="h-5 w-5 rounded-full border border-slate-950 text-slate-950 focus:!ring-2 focus:!ring-slate-950"
-                  onClick={() => updateDoneTask(item.id)}
+                  onChange={() => updateDoneTask(item.id)}
                   checked={item.done}
                 />
                 <Link

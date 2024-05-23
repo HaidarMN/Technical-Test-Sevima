@@ -13,10 +13,6 @@ import {
 } from "firebase/firestore";
 import { firestoreDB } from "@/src/plugins/firebase";
 
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-
 import CardTotal from "@/components/overview/CardTotal";
 import CardTask from "@/components/overview/CardTasks";
 import { FirestoreParams } from "@/src/types";
@@ -24,7 +20,7 @@ import { FirestoreParams } from "@/src/types";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const Home = () => {
-  const { setBreadcrumb, errorHandler, setAlert } = useLayoutStore();
+  const { setBreadcrumb, errorHandler } = useLayoutStore();
 
   const [listTotal, setListTotal] = useState<DocumentData>();
   const [loadingListTotal, setLoadingListTotal] = useState<boolean>(false);

@@ -2,12 +2,9 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// Stores
 import { useAuthStore } from "@/stores/auth";
 
-// Icon
-import { MdExitToApp } from "react-icons/md";
-import { IoLibrary, IoLogoBuffer } from "react-icons/io5";
+import { MdExitToApp, MdTask } from "react-icons/md";
 import { FaChartPie } from "react-icons/fa6";
 
 const Sidebar = () => {
@@ -18,12 +15,7 @@ const Sidebar = () => {
   // Variabel
   const list_menu = [
     { label: "Overview", path: "/", icon: <FaChartPie /> },
-    { label: "Input Form", path: "/input-form", icon: <IoLibrary /> },
-    { label: "Pop Up", path: "/pop-up", icon: <IoLogoBuffer /> },
-    { label: "Table", path: "/table", icon: <IoLogoBuffer /> },
-    { label: "Button", path: "/button", icon: <IoLogoBuffer /> },
-    { label: "Stepper", path: "/stepper-form", icon: <IoLogoBuffer /> },
-    { label: "Progress Bar", path: "/progress-bar", icon: <IoLogoBuffer /> },
+    { label: "Tasks", path: "/tasks", icon: <MdTask /> },
   ];
 
   // Function

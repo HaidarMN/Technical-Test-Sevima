@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 // Components
 import Breadcrumb from "@/components/general/Breadcrumb";
 import Sidebar from "@/components/general/Sidebar";
+import Navbar from "@/components/general/Navbar";
 
 type props = {
   title: string;
@@ -21,13 +22,14 @@ const MainLayout = ({ title, children }: props) => {
       </Head>
       <div className="flex">
         <Sidebar />
-        <main className="ml-16 flex grow flex-col gap-6 p-4 pt-4 md:p-6 lg:ml-60 lg:p-8">
-          <div className="flex flex-col gap-2">
-            <h1 className="text-4xl font-bold">{title}</h1>
+
+        <div className="ml-16 flex w-full grow flex-col lg:ml-60">
+          <Navbar title={title} />
+          <main className="flex grow flex-col gap-6 p-4 md:p-6 md:pt-4 lg:p-8 lg:pt-6">
             <Breadcrumb />
-          </div>
-          {children}
-        </main>
+            {children}
+          </main>
+        </div>
       </div>
     </>
   );
