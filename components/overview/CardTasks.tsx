@@ -32,7 +32,7 @@ import { GoKebabHorizontal } from "react-icons/go";
 
 const validationSchema = yup.object({
   title: yup.string().required().label("Title Task"),
-  status: yup.string().required().label("Status Task"),
+  priority: yup.string().required().label("Priority Task"),
 });
 
 const CardTask = () => {
@@ -54,7 +54,7 @@ const CardTask = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
-  const statusTaskOptions = [
+  const priorityTaskOptions = [
     { value: "urgent", label: "Urgent" },
     { value: "schedule", label: "Schedule" },
     { value: "delegate", label: "Delegate" },
@@ -79,8 +79,8 @@ const CardTask = () => {
         response.docs.map((doc) => ({
           id: doc.id,
           title: doc.data().title,
+          priority: doc.data().priority,
           status: doc.data().status,
-          done: doc.data().done,
         })),
       );
     } catch (error) {
@@ -95,6 +95,7 @@ const CardTask = () => {
       setLoadingCreateTask(true);
       await addDoc(collection(firestoreDB, "tasks"), {
         ...value,
+        low_title: value.title.toLowerCase(),
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),
         done: false,
@@ -114,7 +115,7 @@ const CardTask = () => {
     }
   };
 
-  const updateDoneTask = async (id: string) => {
+  const updateStatusTask = async (id: string) => {
     try {
       const isDone = await getDoc(doc(firestoreDB, "tasks", id));
 
@@ -135,7 +136,7 @@ const CardTask = () => {
     }
   };
 
-  const getStatusStyle = (value: string) => {
+  const getPriorityStyle = (value: string) => {
     switch (value) {
       case "urgent":
         return "bg-red-500";
@@ -179,7 +180,7 @@ const CardTask = () => {
                   Create Task
                 </span>
                 <span
-                  onClick={() => router.push("/task")}
+                  onClick={() => router.push("/tasks")}
                   className="cursor-pointer px-4 py-2"
                 >
                   View all
@@ -204,11 +205,11 @@ const CardTask = () => {
                   type="checkbox"
                   name={`task ${item.id}`}
                   className="h-5 w-5 rounded-full border border-slate-950 text-slate-950 focus:!ring-2 focus:!ring-slate-950"
-                  onChange={() => updateDoneTask(item.id)}
-                  checked={item.done}
+                  onChange={() => updateStatusTask(item.id)}
+                  checked={item.status}
                 />
                 <Link
-                  href={`/task?search=${item.title}`}
+                  href={`/tasks?search=${item.title}`}
                   className="font-semibold text-slate-500 decoration-slate-500 underline-offset-2 hover:underline"
                   title={item.title}
                 >
@@ -216,9 +217,9 @@ const CardTask = () => {
                 </Link>
               </div>
               <span
-                className={`rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getStatusStyle(item.status)}`}
+                className={`rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getPriorityStyle(item.priority)}`}
               >
-                {item.status}
+                {item.priority}
               </span>
             </div>
           ))}
@@ -241,13 +242,13 @@ const CardTask = () => {
             primary
           />
           <InputSelect
-            name="status"
+            name="priority"
             control={control}
-            label="Status Task"
+            label="Priority Task"
             placeholder="Add some title"
-            error={errors.status?.message}
+            error={errors.priority?.message}
             primary
-            options={statusTaskOptions}
+            options={priorityTaskOptions}
           />
 
           <div className="flex w-full flex-row items-center justify-end gap-2">
