@@ -44,11 +44,13 @@ const Navbar: FC<NavbarType> = ({ title }) => {
 
   return (
     <div className="flex w-full flex-row items-center justify-between bg-white px-4 py-4 md:px-6 lg:px-8 dark:bg-slate-950">
-      <h1 className="text-2xl font-bold dark:text-sky-500">{title}</h1>
+      <h1 className="text-lg font-bold lg:text-2xl dark:text-sky-500">
+        {title}
+      </h1>
 
-      <div className="grid grid-cols-2 divide-x-2">
-        <div className="flex flex-row items-center gap-4 pr-4">
-          <form onSubmit={handleSubmit(onSearch)}>
+      <div className="grid grid-cols-1 md:grid-cols-2 md:divide-x-2">
+        <div className="hidden flex-row items-center gap-4 pr-4 md:flex md:justify-end lg:justify-normal">
+          <form onSubmit={handleSubmit(onSearch)} className="hidden lg:block">
             <InputText
               name="search_task"
               control={control}
@@ -93,8 +95,10 @@ const Navbar: FC<NavbarType> = ({ title }) => {
           </div>
         </div>
 
-        <div className="flex flex-row items-center gap-4 pl-4">
-          <span className="dark:text-sky-500">{user.email}</span>
+        <div className="flex flex-row items-center gap-4 md:pl-4">
+          <span className="hidden md:block dark:text-sky-500">
+            {user.email}
+          </span>
 
           <div className="relative">
             <div
@@ -107,7 +111,7 @@ const Navbar: FC<NavbarType> = ({ title }) => {
                   className="fixed inset-0 z-10 h-full w-full"
                   onClick={() => setOpenProfile(false)}
                 ></div>
-                <div className="absolute right-0 top-16 z-20 grid w-40 grid-cols-1 divide-y rounded-lg border border-slate-300 bg-white shadow-md">
+                <div className="absolute right-0 top-16 z-20 grid w-40 grid-cols-1 divide-y rounded-lg border border-slate-300 bg-white shadow-md dark:border-sky-500 dark:bg-sky-500 dark:text-white">
                   <span
                     onClick={() =>
                       setAlert({

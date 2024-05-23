@@ -113,12 +113,12 @@ const DetailTicket = () => {
   return (
     <MainLayout title="Detail Tickets">
       <div className="flex w-full flex-col gap-4 rounded-lg bg-white px-8 py-6 shadow-md dark:bg-slate-950">
-        <div className="flex w-full flex-row items-center justify-between">
+        <div className="flex w-full flex-col items-start justify-between gap-2 md:flex-row md:items-center">
           <h2 className="text-xl font-bold dark:text-sky-500">{data.title}</h2>
           <Button onClick={() => router.back()}>Back</Button>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="flex flex-col gap-1">
             <h3 className="font-bold dark:text-sky-500">Customer Name</h3>
             <span className="dark:text-slate-400">{data.customer_name}</span>
@@ -146,7 +146,7 @@ const DetailTicket = () => {
         </div>
 
         {data.status === "pending" && (
-          <div className="mt-4 flex flex-row items-center gap-4">
+          <div className="mt-4 flex flex-col items-start gap-4 md:flex-row md:items-center">
             <button
               className="flex flex-row items-center gap-2 rounded-md border border-green-500 bg-green-500 px-4 py-2 font-medium text-white"
               onClick={onApprove}

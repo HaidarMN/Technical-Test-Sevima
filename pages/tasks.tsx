@@ -159,7 +159,7 @@ const Tasks = () => {
   return (
     <MainLayout title="List Tasks">
       <div className="flex w-full flex-col gap-4 rounded-lg bg-white px-8 py-6 shadow-md dark:bg-slate-950">
-        <div className="flex flex-row items-center justify-between gap-4">
+        <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <div className="flex flex-col">
             <h1 className="text-lg font-bold dark:text-sky-500">All Tasks</h1>
             <span className="text-sm text-slate-500 dark:text-slate-400">
@@ -167,7 +167,7 @@ const Tasks = () => {
             </span>
           </div>
 
-          <div className="flex flex-row items-center gap-4">
+          <div className="flex w-full flex-row items-center justify-end gap-4 md:w-fit md:justify-normal">
             <div className="relative">
               <div
                 className="flex cursor-pointer flex-row items-center gap-2 dark:text-sky-500"
@@ -208,44 +208,46 @@ const Tasks = () => {
           </div>
         </div>
 
-        <table className="table-auto">
-          <thead>
-            <tr className="border-b-2 text-left dark:text-sky-500">
-              <th className="p-4 pl-2"></th>
-              <th className="p-4">Title</th>
-              <th className="p-4">Created at</th>
-              <th className="p-4 pr-2">Priority</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {data.map((item, index) => (
-              <tr
-                className={`hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-sky-950 ${index === data.length - 1 ? "" : "border-b"}`}
-                key={item.id}
-              >
-                <td className="p-4 pl-2">
-                  <input
-                    type="checkbox"
-                    name={`task ${item.id}`}
-                    className="h-5 w-5 rounded-full border border-slate-950 text-slate-950 focus:!ring-2 focus:!ring-slate-950 dark:border-sky-500 dark:text-sky-500 dark:focus:ring-sky-500"
-                    onChange={() => updateStatusTask(item.id)}
-                    checked={item.status}
-                  />
-                </td>
-                <td className="p-4 font-semibold">{item.title}</td>
-                <td className="p-4">{item.created_at}</td>
-                <td className="p-4 pr-2">
-                  <span
-                    className={`w-fit rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getPriorityStyle(item.priority)}`}
-                  >
-                    {item.priority}
-                  </span>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full table-auto">
+            <thead>
+              <tr className="border-b-2 text-left dark:text-sky-500">
+                <th className="p-4 pl-2"></th>
+                <th className="p-4">Title</th>
+                <th className="p-4">Created at</th>
+                <th className="p-4 pr-2">Priority</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {data.map((item, index) => (
+                <tr
+                  className={`hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-sky-950 ${index === data.length - 1 ? "" : "border-b"}`}
+                  key={item.id}
+                >
+                  <td className="p-4 pl-2">
+                    <input
+                      type="checkbox"
+                      name={`task ${item.id}`}
+                      className="h-5 w-5 rounded-full border border-slate-950 text-slate-950 focus:!ring-2 focus:!ring-slate-950 dark:border-sky-500 dark:text-sky-500 dark:focus:ring-sky-500"
+                      onChange={() => updateStatusTask(item.id)}
+                      checked={item.status}
+                    />
+                  </td>
+                  <td className="p-4 font-semibold">{item.title}</td>
+                  <td className="p-4">{item.created_at}</td>
+                  <td className="p-4 pr-2">
+                    <span
+                      className={`w-fit rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getPriorityStyle(item.priority)}`}
+                    >
+                      {item.priority}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </MainLayout>
   );

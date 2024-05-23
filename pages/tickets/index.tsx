@@ -179,7 +179,7 @@ const Tickets = () => {
   return (
     <MainLayout title="List Tickets">
       <div className="flex w-full flex-col gap-4 rounded-lg bg-white px-8 py-6 shadow-md dark:bg-slate-950">
-        <div className="flex flex-row items-center justify-between gap-4">
+        <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <div className="flex flex-col">
             <h1 className="text-lg font-bold dark:text-sky-500">All Tickets</h1>
             <span className="text-sm text-slate-500 dark:text-slate-400">
@@ -187,7 +187,7 @@ const Tickets = () => {
             </span>
           </div>
 
-          <div className="flex flex-row items-center gap-4">
+          <div className="flex w-full flex-row items-center justify-end gap-4 md:w-fit md:justify-normal">
             <div className="relative">
               <div
                 className="flex cursor-pointer flex-row items-center gap-2 dark:text-sky-500"
@@ -265,52 +265,54 @@ const Tickets = () => {
           </div>
         </div>
 
-        <table className="table-auto">
-          <thead>
-            <tr className="border-b-2 text-left dark:text-sky-500">
-              <th className="p-4 pl-2">Title</th>
-              <th className="p-4">Customer name</th>
-              <th className="p-4">Created at</th>
-              <th className="p-4">Priority</th>
-              <th className="p-4 pr-2">Status</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {data.map((item, index) => (
-              <tr
-                className={`hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-sky-950 ${index === data.length - 1 ? "" : "border-b"}`}
-                key={item.id}
-              >
-                <td className="p-4 pl-2">
-                  <Link
-                    href={`/tickets/${item.id}`}
-                    className="font-semibold text-sky-500 decoration-sky-500 underline-offset-2 hover:underline dark:text-white dark:decoration-white"
-                    title={item.title}
-                  >
-                    {item.title}
-                  </Link>
-                </td>
-                <td className="p-4">{item.customer_name}</td>
-                <td className="p-4">{item.created_at}</td>
-                <td className="p-4">
-                  <span
-                    className={`w-fit rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getPriorityStyle(item.priority)}`}
-                  >
-                    {item.priority}
-                  </span>
-                </td>
-                <td className="p-4 pr-2">
-                  <span
-                    className={`w-fit rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getStatusStyle(item.status)}`}
-                  >
-                    {item.status}
-                  </span>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full table-auto">
+            <thead>
+              <tr className="border-b-2 text-left dark:text-sky-500">
+                <th className="p-4 pl-2">Title</th>
+                <th className="p-4">Customer name</th>
+                <th className="p-4">Created at</th>
+                <th className="p-4">Priority</th>
+                <th className="p-4 pr-2">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {data.map((item, index) => (
+                <tr
+                  className={`hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-sky-950 ${index === data.length - 1 ? "" : "border-b"}`}
+                  key={item.id}
+                >
+                  <td className="p-4 pl-2">
+                    <Link
+                      href={`/tickets/${item.id}`}
+                      className="font-semibold text-sky-500 decoration-sky-500 underline-offset-2 hover:underline dark:text-white dark:decoration-white"
+                      title={item.title}
+                    >
+                      {item.title}
+                    </Link>
+                  </td>
+                  <td className="p-4">{item.customer_name}</td>
+                  <td className="p-4">{item.created_at}</td>
+                  <td className="p-4">
+                    <span
+                      className={`w-fit rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getPriorityStyle(item.priority)}`}
+                    >
+                      {item.priority}
+                    </span>
+                  </td>
+                  <td className="p-4 pr-2">
+                    <span
+                      className={`w-fit rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getStatusStyle(item.status)}`}
+                    >
+                      {item.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </MainLayout>
   );

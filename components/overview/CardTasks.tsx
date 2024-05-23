@@ -151,7 +151,9 @@ const CardTask = () => {
   return (
     <div className="flex w-full flex-col gap-4 rounded-lg bg-white shadow-md dark:bg-slate-950">
       <div className="flex w-full flex-row items-start justify-between px-8 pt-6">
-        <span className="text-xl font-bold dark:text-sky-500">Tasks</span>
+        <span className="text-lg font-bold md:text-xl dark:text-sky-500">
+          Tasks
+        </span>
 
         <div className="relative">
           <GoKebabHorizontal
@@ -189,7 +191,7 @@ const CardTask = () => {
       <div className="mb-4 grid grid-cols-1 divide-y dark:divide-slate-400">
         {data.map((item) => (
           <div
-            className="flex flex-row items-center justify-between px-8 py-4"
+            className="flex flex-col items-start justify-normal gap-4 px-8 py-4 md:flex-row md:items-center md:justify-between"
             key={item.id}
           >
             <div className="flex flex-row items-center gap-2">

@@ -63,8 +63,8 @@ const CardUnresolvedTicket = () => {
 
   return (
     <div className="flex w-full flex-col gap-4 rounded-lg bg-white shadow-md dark:bg-slate-950">
-      <div className="flex w-full flex-row items-start justify-between px-8 pt-6">
-        <span className="text-xl font-bold dark:text-sky-500">
+      <div className="flex w-full flex-col items-start justify-between px-8 pt-6 md:flex-row">
+        <span className="text-lg font-bold md:text-xl dark:text-sky-500">
           Unresolved Tickets
         </span>
         <Link

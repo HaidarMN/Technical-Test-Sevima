@@ -37,6 +37,9 @@ const Home = () => {
       toolbar: {
         show: false,
       },
+      stroke: {
+        curve: "smooth",
+      },
     },
     xaxis: {
       categories: dataChart?.map((item) => item.month),
@@ -106,7 +109,7 @@ const Home = () => {
 
   return (
     <MainLayout title="Overview">
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         <CardTotal
           title="Unresolved"
           total={listTotal?.unresolved}
@@ -129,12 +132,12 @@ const Home = () => {
         />
       </div>
 
-      <div className="flex w-full flex-row rounded-lg bg-white shadow-md dark:bg-slate-950">
-        <div className="flex w-[75%] flex-col gap-2 border-r px-8 py-6">
-          <span className="text-xl font-bold dark:text-sky-500">
+      <div className="flex w-full flex-col rounded-lg bg-white shadow-md lg:flex-row dark:bg-slate-950">
+        <div className="flex w-full flex-col gap-2 border-b px-8 py-6 lg:w-[75%] lg:border-r">
+          <span className="text-lg font-bold md:text-xl dark:text-sky-500">
             Tickets Graph
           </span>
-          <span className="text-sm text-slate-500 dark:text-slate-400">
+          <span className="text-xs text-slate-500 md:text-sm dark:text-slate-400">
             Last updated in 99 December 2099 10:15:20
           </span>
 
@@ -144,9 +147,13 @@ const Home = () => {
             series={chartSeries}
             height={400}
           />
+
+          <span className="text-center text-slate-500 md:hidden dark:text-slate-400">
+            Please see the graph in tablet or dekstop for better experience
+          </span>
         </div>
 
-        <div className="grid-row-3 grid w-[25%] py-8">
+        <div className="grid w-full grid-rows-1 lg:w-[25%] lg:grid-rows-3">
           <div className="flex flex-col items-center justify-center gap-4 border-b p-4">
             <span className="font-semibold text-slate-500 dark:text-slate-400">
               Total High
@@ -174,7 +181,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <CardUnresolvedTicket />
         <CardTask />
       </div>

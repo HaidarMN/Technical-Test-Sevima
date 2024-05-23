@@ -71,12 +71,12 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <aside className="fixed z-20 flex h-screen w-16 flex-col justify-between overflow-y-auto overflow-x-hidden bg-white px-2 py-4 transition-all lg:w-60 lg:px-6 lg:py-8 dark:bg-slate-950">
+    <aside className="fixed z-20 flex h-full w-16 flex-col justify-between overflow-y-auto overflow-x-hidden bg-white px-2 py-4 transition-all lg:w-60 lg:px-6 lg:py-8 dark:bg-slate-950">
       <div className="flex flex-col items-center gap-8 lg:items-start">
         <h1 className="hidden text-lg font-bold lg:block dark:text-sky-500">
           DASHBOARD KIT
         </h1>
-        <h1 className="text-2xl font-bold text-teal-300 lg:hidden">L</h1>
+        <h1 className="text-2xl font-bold lg:hidden dark:text-sky-500">L</h1>
 
         <ul className="w-full space-y-2">
           {list_menu.map((val, index) => (
@@ -93,7 +93,7 @@ const Sidebar = () => {
         </ul>
       </div>
 
-      <div className="flex flex-col items-center justify-between lg:flex-row">
+      <div className="flex flex-col items-center justify-between gap-4 lg:flex-row">
         <div className="relative">
           <div
             className="flex cursor-pointer flex-row items-center gap-2 rounded-full border-2"
@@ -108,9 +108,9 @@ const Sidebar = () => {
                 className="fixed inset-0 z-10 h-full w-full"
                 onClick={() => setIsOpenLanguage(false)}
               ></div>
-              <div className="absolute -top-16 left-0 z-20 flex min-w-max flex-row items-center rounded-lg border border-slate-300 bg-white shadow-md dark:border-sky-500 dark:bg-sky-500">
+              <div className="absolute -top-28 left-0 z-20 flex min-w-max flex-col items-center rounded-lg border border-slate-300 bg-white shadow-md lg:-top-16 lg:flex-row dark:border-sky-500 dark:bg-sky-500">
                 <div
-                  className={`cursor-pointer p-2 ${currentLanguage.name === "indonesia" && "rounded-l-lg bg-slate-200 dark:bg-slate-950"}`}
+                  className={`cursor-pointer p-2 ${currentLanguage.name === "indonesia" && "rounded-t-lg bg-slate-200 lg:rounded-l-lg dark:bg-slate-950"}`}
                   onClick={() =>
                     onChangeLanguage("indonesia", <IndonesiaFlag />)
                   }
@@ -118,7 +118,7 @@ const Sidebar = () => {
                   <IndonesiaFlag />
                 </div>
                 <div
-                  className={`cursor-pointer p-2 ${currentLanguage.name === "english" && "rounded-r-lg bg-slate-200 dark:bg-slate-950"}`}
+                  className={`cursor-pointer p-2 ${currentLanguage.name === "english" && "rounded-b-lg bg-slate-200 lg:rounded-r-lg dark:bg-slate-950"}`}
                   onClick={() => onChangeLanguage("english", <EnglishFlag />)}
                 >
                   <EnglishFlag />
@@ -142,15 +142,15 @@ const Sidebar = () => {
                 className="fixed inset-0 z-10 h-full w-full"
                 onClick={() => setIsOpenTheme(false)}
               ></div>
-              <div className="absolute -top-14 right-0 z-20 flex min-w-max flex-row items-center rounded-lg border border-slate-300 bg-white shadow-md dark:border-sky-500 dark:bg-sky-500 dark:text-white">
+              <div className="absolute inset-x-0 -top-20 z-20 flex min-w-max flex-col items-center rounded-lg border border-slate-300 bg-white shadow-md lg:-top-14 lg:right-0 lg:flex-row dark:border-sky-500 dark:bg-sky-500 dark:text-white">
                 <div
-                  className={`cursor-pointer p-2 text-xl ${currentTheme.name === "light" && "rounded-l-lg bg-slate-200 dark:bg-slate-950"}`}
+                  className={`cursor-pointer p-2 text-xl ${currentTheme.name === "light" && "rounded-t-lg bg-slate-200 lg:rounded-l-lg dark:bg-slate-950"}`}
                   onClick={() => onChangeTheme("light", <FaSun />)}
                 >
                   <FaSun />
                 </div>
                 <div
-                  className={`cursor-pointer p-2 text-xl ${currentTheme.name === "dark" && "rounded-r-lg bg-slate-200 dark:bg-slate-950"}`}
+                  className={`cursor-pointer p-2 text-xl ${currentTheme.name === "dark" && "rounded-b-lg bg-slate-200 lg:rounded-r-lg dark:bg-slate-950"}`}
                   onClick={() => onChangeTheme("dark", <FaMoon />)}
                 >
                   <FaMoon />
