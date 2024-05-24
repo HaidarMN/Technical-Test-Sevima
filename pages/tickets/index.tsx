@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import MainLayout from "@/layouts/MainLayout";
 import { useLayoutStore } from "@/stores/layout";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 import {
   Timestamp,
@@ -41,6 +42,7 @@ const Tickets = () => {
   });
 
   const router = useRouter();
+  const { t } = useTranslation();
   const { setBreadcrumb, errorHandler, setAlert } = useLayoutStore();
 
   const [openFilter, setOpenFilter] = useState<boolean>(false);
@@ -181,7 +183,9 @@ const Tickets = () => {
       <div className="flex w-full flex-col gap-4 rounded-lg bg-white px-8 py-6 shadow-md dark:bg-slate-950">
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <div className="flex flex-col">
-            <h1 className="text-lg font-bold dark:text-sky-500">All Tickets</h1>
+            <h1 className="text-lg font-bold dark:text-sky-500">
+              {t("tickets:all-tickets")}
+            </h1>
             <span className="text-sm text-slate-500 dark:text-slate-400">
               Total {data.length}
             </span>
@@ -269,11 +273,11 @@ const Tickets = () => {
           <table className="w-full table-auto">
             <thead>
               <tr className="border-b-2 text-left dark:text-sky-500">
-                <th className="p-4 pl-2">Title</th>
-                <th className="p-4">Customer name</th>
-                <th className="p-4">Created at</th>
-                <th className="p-4">Priority</th>
-                <th className="p-4 pr-2">Status</th>
+                <th className="p-4 pl-2">{t("tickets:title-ticket")}</th>
+                <th className="p-4">{t("tickets:customer-name")}</th>
+                <th className="p-4">{t("overview:created-at")}</th>
+                <th className="p-4">{t("tickets:priority-ticket")}</th>
+                <th className="p-4 pr-2">{t("tickets:status-ticket")}</th>
               </tr>
             </thead>
 

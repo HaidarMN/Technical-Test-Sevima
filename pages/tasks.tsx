@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import MainLayout from "@/layouts/MainLayout";
 import moment from "moment";
-
+import { useTranslation } from "react-i18next";
 import { useLayoutStore } from "@/stores/layout";
 
 import {
@@ -38,6 +38,7 @@ const Tasks = () => {
   });
 
   const router = useRouter();
+  const { t } = useTranslation();
   const { setBreadcrumb, errorHandler, setAlert } = useLayoutStore();
 
   const [openFilter, setOpenFilter] = useState<boolean>(false);
@@ -161,7 +162,9 @@ const Tasks = () => {
       <div className="flex w-full flex-col gap-4 rounded-lg bg-white px-8 py-6 shadow-md dark:bg-slate-950">
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <div className="flex flex-col">
-            <h1 className="text-lg font-bold dark:text-sky-500">All Tasks</h1>
+            <h1 className="text-lg font-bold dark:text-sky-500">
+              {t("tasks:all-tasks")}
+            </h1>
             <span className="text-sm text-slate-500 dark:text-slate-400">
               Total {data.length}
             </span>
@@ -186,16 +189,20 @@ const Tasks = () => {
                   <div className="absolute right-0 top-8 z-20 flex min-w-max flex-col gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 shadow-md dark:border-sky-500 dark:bg-sky-500">
                     <InputSelect
                       name="priority"
-                      label="Priority"
-                      placeholder="Select priority"
+                      label={t("tasks:priority-task")}
+                      placeholder={t("placeholder:select", {
+                        field: t("tasks:priority-task"),
+                      })}
                       control={control}
                       options={priorityFilterOptions}
                       passValue={onFilterPriority}
                     />
                     <InputSelect
                       name="status"
-                      label="Status"
-                      placeholder="Select status"
+                      label={t("tasks:status-task")}
+                      placeholder={t("placeholder:select", {
+                        field: t("tasks:status-task"),
+                      })}
                       control={control}
                       options={statusFilterOptions}
                       passValue={onFilterStatus}
@@ -213,9 +220,9 @@ const Tasks = () => {
             <thead>
               <tr className="border-b-2 text-left dark:text-sky-500">
                 <th className="p-4 pl-2"></th>
-                <th className="p-4">Title</th>
-                <th className="p-4">Created at</th>
-                <th className="p-4 pr-2">Priority</th>
+                <th className="p-4">{t("tasks:title-task")}</th>
+                <th className="p-4">{t("overview:created-at")}</th>
+                <th className="p-4 pr-2">{t("tasks:priority-task")}</th>
               </tr>
             </thead>
 

@@ -9,17 +9,19 @@ import { FaChartPie, FaTicketSimple } from "react-icons/fa6";
 import { EnglishFlag } from "../logo/EnglishFlag";
 import { IndonesiaFlag } from "../logo/IndonesiaFlag";
 import { FaMoon, FaSun } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const pathname = usePathname();
+  const { i18n } = useTranslation();
 
   const [isOpenLanguage, setIsOpenLanguage] = useState<boolean>(false);
   const [currentLanguage, setCurrentLanguage] = useState<{
     name: string;
     logo: React.ReactNode;
   }>({
-    name: "english",
-    logo: <EnglishFlag />,
+    name: Cookies.get("locale") as string,
+    logo: Cookies.get("locale") === "en" ? <EnglishFlag /> : <IndonesiaFlag />,
   });
   const [isOpenTheme, setIsOpenTheme] = useState<boolean>(false);
   const [currentTheme, setCurrentTheme] = useState<{
@@ -41,6 +43,8 @@ const Sidebar = () => {
       name,
       logo,
     });
+    i18n.changeLanguage(name);
+    Cookies.set("locale", name);
     setIsOpenLanguage(false);
   };
 
@@ -110,16 +114,14 @@ const Sidebar = () => {
               ></div>
               <div className="absolute -top-28 left-0 z-20 flex min-w-max flex-col items-center rounded-lg border border-slate-300 bg-white shadow-md lg:-top-16 lg:flex-row dark:border-sky-500 dark:bg-sky-500">
                 <div
-                  className={`cursor-pointer p-2 ${currentLanguage.name === "indonesia" && "rounded-t-lg bg-slate-200 lg:rounded-l-lg dark:bg-slate-950"}`}
-                  onClick={() =>
-                    onChangeLanguage("indonesia", <IndonesiaFlag />)
-                  }
+                  className={`cursor-pointer p-2 ${currentLanguage.name === "id" && "rounded-t-lg bg-slate-200 lg:rounded-l-lg dark:bg-slate-950"}`}
+                  onClick={() => onChangeLanguage("id", <IndonesiaFlag />)}
                 >
                   <IndonesiaFlag />
                 </div>
                 <div
-                  className={`cursor-pointer p-2 ${currentLanguage.name === "english" && "rounded-b-lg bg-slate-200 lg:rounded-r-lg dark:bg-slate-950"}`}
-                  onClick={() => onChangeLanguage("english", <EnglishFlag />)}
+                  className={`cursor-pointer p-2 ${currentLanguage.name === "en" && "rounded-b-lg bg-slate-200 lg:rounded-r-lg dark:bg-slate-950"}`}
+                  onClick={() => onChangeLanguage("en", <EnglishFlag />)}
                 >
                   <EnglishFlag />
                 </div>
@@ -142,7 +144,7 @@ const Sidebar = () => {
                 className="fixed inset-0 z-10 h-full w-full"
                 onClick={() => setIsOpenTheme(false)}
               ></div>
-              <div className="absolute inset-x-0 -top-20 z-20 flex min-w-max flex-col items-center rounded-lg border border-slate-300 bg-white shadow-md lg:-top-14 lg:right-0 lg:flex-row dark:border-sky-500 dark:bg-sky-500 dark:text-white">
+              <div className="absolute inset-x-0 -top-20 z-20 flex min-w-max flex-col items-center rounded-lg border border-slate-300 bg-white shadow-md lg:-top-14 lg:left-auto lg:right-0 lg:flex-row dark:border-sky-500 dark:bg-sky-500 dark:text-white">
                 <div
                   className={`cursor-pointer p-2 text-xl ${currentTheme.name === "light" && "rounded-t-lg bg-slate-200 lg:rounded-l-lg dark:bg-slate-950"}`}
                   onClick={() => onChangeTheme("light", <FaSun />)}

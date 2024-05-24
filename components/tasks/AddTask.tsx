@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { useLayoutStore } from "@/stores/layout";
+import { useTranslation } from "react-i18next";
 
 import {
   addDoc,
@@ -45,6 +46,7 @@ const AddTask: FC<AddTaskType> = ({ onSuccessAdd }) => {
     resolver: yupResolver(validationSchema),
   });
 
+  const { t } = useTranslation();
   const { errorHandler, setAlert } = useLayoutStore();
 
   const [isAddTask, setIsAddTask] = useState<boolean>(false);
@@ -90,11 +92,13 @@ const AddTask: FC<AddTaskType> = ({ onSuccessAdd }) => {
   return (
     <>
       <Button primary onClick={() => setIsAddTask(true)}>
-        Add Task
+        {t("tasks:create-task")}
       </Button>
 
       <Modal isOpen={isAddTask}>
-        <h1 className="text-xl font-bold dark:text-white">Add Task</h1>
+        <h1 className="text-xl font-bold dark:text-white">
+          {t("tasks:create-task")}
+        </h1>
 
         <form
           className="flex flex-col gap-4"
@@ -103,25 +107,31 @@ const AddTask: FC<AddTaskType> = ({ onSuccessAdd }) => {
           <InputText
             name="title"
             control={control}
-            label="Title Task"
-            placeholder="Add some title"
+            label={t("tasks:title-task")}
+            placeholder={t("placeholder:enter", {
+              field: t("tasks:title-task"),
+            })}
             error={errors.title?.message}
             primary
           />
           <InputSelect
             name="priority"
             control={control}
-            label="Priority Task"
-            placeholder="Choose the priority"
+            label={t("tasks:priority-task")}
+            placeholder={t("placeholder:select", {
+              field: t("tasks:priority-task"),
+            })}
             error={errors.priority?.message}
             primary
             options={priorityTaskOptions}
           />
 
           <div className="flex w-full flex-row items-center justify-end gap-2">
-            <Button onClick={onCloseModalCreateTask}>Cancel</Button>
+            <Button onClick={onCloseModalCreateTask}>
+              {t("button:cancel")}
+            </Button>
             <Button type="submit" primary isLoading={loadingCreateTask}>
-              Create
+              {t("button:create")}
             </Button>
           </div>
         </form>

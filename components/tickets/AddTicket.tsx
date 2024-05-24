@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { useLayoutStore } from "@/stores/layout";
+import { useTranslation } from "react-i18next";
 
 import {
   addDoc,
@@ -46,6 +47,7 @@ const AddTicket: FC<AddTicketType> = ({ onSuccessAdd }) => {
     resolver: yupResolver(validationSchema),
   });
 
+  const { t } = useTranslation();
   const { errorHandler, setAlert } = useLayoutStore();
 
   const [isAddTicket, setIsAddTicket] = useState<boolean>(false);
@@ -90,11 +92,13 @@ const AddTicket: FC<AddTicketType> = ({ onSuccessAdd }) => {
   return (
     <>
       <Button primary onClick={() => setIsAddTicket(true)}>
-        Add Ticket
+        {t("tickets:create-ticket")}
       </Button>
 
       <Modal isOpen={isAddTicket}>
-        <h1 className="text-xl font-bold dark:text-white">Add Ticket</h1>
+        <h1 className="text-xl font-bold dark:text-white">
+          {t("tickets:create-ticket")}
+        </h1>
 
         <form
           className="flex flex-col gap-4"
@@ -103,33 +107,41 @@ const AddTicket: FC<AddTicketType> = ({ onSuccessAdd }) => {
           <InputText
             name="title"
             control={control}
-            label="Title Ticket"
-            placeholder="Add title"
+            label={t("tickets:title-ticket")}
+            placeholder={t("placeholder:enter", {
+              field: t("tickets:title-ticket"),
+            })}
             error={errors.title?.message}
             primary
           />
           <InputText
             name="customer_name"
             control={control}
-            label="Customer Name"
-            placeholder="Add customer name"
+            label={t("tickets:customer-name")}
+            placeholder={t("placeholder:enter", {
+              field: t("tickets:customer-name"),
+            })}
             error={errors.title?.message}
             primary
           />
           <InputSelect
             name="priority"
             control={control}
-            label="Priority Ticket"
-            placeholder="Choose the priority"
+            label={t("tickets:priority-ticket")}
+            placeholder={t("placeholder:select", {
+              field: t("tickets:priority-ticket"),
+            })}
             error={errors.priority?.message}
             primary
             options={priorityTicketOptions}
           />
 
           <div className="flex w-full flex-row items-center justify-end gap-2">
-            <Button onClick={onCloseModalCreateTicket}>Cancel</Button>
+            <Button onClick={onCloseModalCreateTicket}>
+              {t("button:cancel")}
+            </Button>
             <Button type="submit" primary isLoading={loadingCreateTicket}>
-              Create
+              {t("button:create")}
             </Button>
           </div>
         </form>

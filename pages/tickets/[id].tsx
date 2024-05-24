@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import MainLayout from "@/layouts/MainLayout";
 import { useLayoutStore } from "@/stores/layout";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 import {
   DocumentData,
@@ -16,6 +17,7 @@ import Button from "@/components/global/button";
 
 const DetailTicket = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const { setBreadcrumb, errorHandler, setAlert } = useLayoutStore();
 
   const [data, setData] = useState<DocumentData>([]);
@@ -111,24 +113,30 @@ const DetailTicket = () => {
   }, []);
 
   return (
-    <MainLayout title="Detail Tickets">
+    <MainLayout title="Detail Ticket">
       <div className="flex w-full flex-col gap-4 rounded-lg bg-white px-8 py-6 shadow-md dark:bg-slate-950">
         <div className="flex w-full flex-col items-start justify-between gap-2 md:flex-row md:items-center">
           <h2 className="text-xl font-bold dark:text-sky-500">{data.title}</h2>
-          <Button onClick={() => router.back()}>Back</Button>
+          <Button onClick={() => router.back()}>{t("button:back")}</Button>
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="flex flex-col gap-1">
-            <h3 className="font-bold dark:text-sky-500">Customer Name</h3>
+            <h3 className="font-bold dark:text-sky-500">
+              {t("tickets:customer-name")}
+            </h3>
             <span className="dark:text-slate-400">{data.customer_name}</span>
           </div>
           <div className="flex flex-col gap-1">
-            <h3 className="font-bold dark:text-sky-500">Created At</h3>
+            <h3 className="font-bold dark:text-sky-500">
+              {t("overview:created-at")}
+            </h3>
             <span className="dark:text-slate-400">{data.created_at}</span>
           </div>
           <div className="flex flex-col gap-1">
-            <h3 className="font-bold dark:text-sky-500">Priority</h3>
+            <h3 className="font-bold dark:text-sky-500">
+              {t("tickets:priority-ticket")}
+            </h3>
             <span
               className={`w-fit rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getPriorityStyle(data.priority)}`}
             >
@@ -136,7 +144,9 @@ const DetailTicket = () => {
             </span>
           </div>
           <div className="flex flex-col gap-1">
-            <h3 className="font-bold dark:text-sky-500">Status</h3>
+            <h3 className="font-bold dark:text-sky-500">
+              {t("tickets:status-ticket")}
+            </h3>
             <span
               className={`w-fit rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getStatusStyle(data.status)}`}
             >
@@ -154,7 +164,7 @@ const DetailTicket = () => {
               {isApprove && (
                 <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-slate-300"></div>
               )}
-              Approve
+              {t("button:approve")}
             </button>
             <button
               className="flex flex-row items-center gap-2 rounded-md border border-red-500 px-4 py-2 font-medium text-red-500"
@@ -163,7 +173,7 @@ const DetailTicket = () => {
               {isReject && (
                 <div className="h-5 w-5 animate-spin rounded-full border-2 border-red-200 border-t-red-500"></div>
               )}
-              Reject
+              {t("button:reject")}
             </button>
           </div>
         )}

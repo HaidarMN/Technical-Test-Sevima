@@ -1,0 +1,9 @@
+{
+  "tickets": "Tickets",
+  "all-tickets": "All tickets",
+  "create-ticket": "Create ticket",
+  "title-ticket": "Ticket title",
+  "customer-name": "Customer name",
+  "priority-ticket": "Ticket priority",
+  "status-ticket": "Ticket status"
+}

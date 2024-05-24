@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 import { useAuthStore } from "@/stores/auth";
 import { useLayoutStore } from "@/stores/layout";
@@ -22,6 +23,7 @@ const Navbar: FC<NavbarType> = ({ title }) => {
   });
 
   const router = useRouter();
+  const { t } = useTranslation();
   const { user, removeAuth } = useAuthStore();
   const { setAlert } = useLayoutStore();
 
@@ -50,11 +52,14 @@ const Navbar: FC<NavbarType> = ({ title }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 md:divide-x-2">
         <div className="hidden flex-row items-center gap-4 pr-4 md:flex md:justify-end lg:justify-normal">
-          <form onSubmit={handleSubmit(onSearch)} className="hidden lg:block">
+          <form
+            onSubmit={handleSubmit(onSearch)}
+            className="hidden w-52 md:block"
+          >
             <InputText
               name="search_task"
               control={control}
-              placeholder="Search task and hit enter"
+              placeholder={t("placeholder:search-task")}
             />
           </form>
 

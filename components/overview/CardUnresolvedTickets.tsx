@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useLayoutStore } from "@/stores/layout";
+import { useTranslation } from "react-i18next";
 
 import {
   addDoc,
@@ -18,6 +19,7 @@ import {
 import { firestoreDB } from "@/src/plugins/firebase";
 
 const CardUnresolvedTicket = () => {
+  const { t } = useTranslation();
   const { errorHandler, setAlert } = useLayoutStore();
 
   const [totalItem, setTotalItem] = useState<{
@@ -65,13 +67,13 @@ const CardUnresolvedTicket = () => {
     <div className="flex w-full flex-col gap-4 rounded-lg bg-white shadow-md dark:bg-slate-950">
       <div className="flex w-full flex-col items-start justify-between px-8 pt-6 md:flex-row">
         <span className="text-lg font-bold md:text-xl dark:text-sky-500">
-          Unresolved Tickets
+          {t("overview:unresolved-tickets")}
         </span>
         <Link
           href="/tickets?status=pending"
           className="font-semibold text-blue-500 underline-offset-2 hover:underline dark:text-white"
         >
-          View details
+          {t("overview:view-details")}
         </Link>
       </div>
 

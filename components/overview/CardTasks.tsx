@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useLayoutStore } from "@/stores/layout";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 import {
   addDoc,
@@ -45,6 +46,7 @@ const CardTask = () => {
   });
 
   const router = useRouter();
+  const { t } = useTranslation();
   const { errorHandler, setAlert } = useLayoutStore();
 
   const [isAddTask, setIsAddTask] = useState<boolean>(false);
@@ -152,7 +154,7 @@ const CardTask = () => {
     <div className="flex w-full flex-col gap-4 rounded-lg bg-white shadow-md dark:bg-slate-950">
       <div className="flex w-full flex-row items-start justify-between px-8 pt-6">
         <span className="text-lg font-bold md:text-xl dark:text-sky-500">
-          Tasks
+          {t("tasks:tasks")}
         </span>
 
         <div className="relative">
@@ -174,13 +176,13 @@ const CardTask = () => {
                   }}
                   className="cursor-pointer px-4 py-2 dark:text-white"
                 >
-                  Create Task
+                  {t("tasks:create-task")}
                 </span>
                 <span
                   onClick={() => router.push("/tasks")}
                   className="cursor-pointer px-4 py-2 dark:text-white"
                 >
-                  View all
+                  {t("overview:view-all")}
                 </span>
               </div>
             </>
@@ -220,7 +222,9 @@ const CardTask = () => {
       </div>
 
       <Modal isOpen={isAddTask}>
-        <h1 className="text-xl font-bold dark:text-white">Create Task</h1>
+        <h1 className="text-xl font-bold dark:text-white">
+          {t("tasks:create-task")}
+        </h1>
 
         <form
           className="flex flex-col gap-4"
@@ -229,25 +233,31 @@ const CardTask = () => {
           <InputText
             name="title"
             control={control}
-            label="Title Task"
-            placeholder="Add some title"
+            label={t("tasks:title-task")}
+            placeholder={t("placeholder:enter", {
+              field: t("tasks:title-task"),
+            })}
             error={errors.title?.message}
             primary
           />
           <InputSelect
             name="priority"
             control={control}
-            label="Priority Task"
-            placeholder="Add some title"
+            label={t("tasks:priority-task")}
+            placeholder={t("placeholder:select", {
+              field: t("tasks:priority-task"),
+            })}
             error={errors.priority?.message}
             primary
             options={priorityTaskOptions}
           />
 
           <div className="flex w-full flex-row items-center justify-end gap-2">
-            <Button onClick={onCloseModalCreateTask}>Cancel</Button>
+            <Button onClick={onCloseModalCreateTask}>
+              {t("button:cancel")}
+            </Button>
             <Button type="submit" primary isLoading={loadingCreateTask}>
-              Create
+              {t("button:create")}
             </Button>
           </div>
         </form>

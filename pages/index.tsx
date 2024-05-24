@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import MainLayout from "@/layouts/MainLayout";
 import dynamic from "next/dynamic";
 import { useLayoutStore } from "@/stores/layout";
+import { useTranslation } from "react-i18next";
 
 import {
   DocumentData,
@@ -20,6 +21,7 @@ import CardUnresolvedTicket from "@/components/overview/CardUnresolvedTickets";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const Home = () => {
+  const { t } = useTranslation();
   const { setBreadcrumb, errorHandler, theme } = useLayoutStore();
 
   const [listTotal, setListTotal] = useState<DocumentData>();
@@ -111,22 +113,22 @@ const Home = () => {
     <MainLayout title="Overview">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         <CardTotal
-          title="Unresolved"
+          title={t("overview:unresolved")}
           total={listTotal?.unresolved}
           isLoading={loadingListTotal}
         />
         <CardTotal
-          title="Overview"
+          title={t("overview:overview")}
           total={listTotal?.overview}
           isLoading={loadingListTotal}
         />
         <CardTotal
-          title="Open"
+          title={t("overview:open")}
           total={listTotal?.open}
           isLoading={loadingListTotal}
         />
         <CardTotal
-          title="On Hold"
+          title={t("overview:on-hold")}
           total={listTotal?.on_hold}
           isLoading={loadingListTotal}
         />
@@ -135,10 +137,10 @@ const Home = () => {
       <div className="flex w-full flex-col rounded-lg bg-white shadow-md lg:flex-row dark:bg-slate-950">
         <div className="flex w-full flex-col gap-2 border-b px-8 py-6 lg:w-[75%] lg:border-r">
           <span className="text-lg font-bold md:text-xl dark:text-sky-500">
-            Tickets Graph
+            {t("overview:tickets-graph")}
           </span>
           <span className="text-xs text-slate-500 md:text-sm dark:text-slate-400">
-            Last updated in 99 December 2099 10:15:20
+            {t("overview:last-updated")} 99 December 2099 10:15:20
           </span>
 
           <Chart
@@ -149,7 +151,7 @@ const Home = () => {
           />
 
           <span className="text-center text-slate-500 md:hidden dark:text-slate-400">
-            Please see the graph in tablet or dekstop for better experience
+            {t("overview:warning-graph")}
           </span>
         </div>
 

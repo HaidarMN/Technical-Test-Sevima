@@ -4,7 +4,7 @@ import { CardTotalType } from "@/src/types";
 const CardTotal: FC<CardTotalType> = ({ title, isLoading, total }) => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-2 rounded-lg bg-white px-8 py-6 shadow-md dark:bg-slate-950">
-      <span className="font-semibold text-slate-500 dark:text-slate-400">
+      <span className="text-center font-semibold text-slate-500 dark:text-slate-400">
         {title}
       </span>
       {isLoading ? (

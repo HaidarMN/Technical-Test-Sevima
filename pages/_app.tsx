@@ -9,7 +9,9 @@ import Cookies from "js-cookie";
 // Components
 import Spinner from "@/components/global/loader/Spinner";
 import Alert from "@/components/global/popUp/Alert";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
+
+import "@/src/locales/i18n";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { is_loading, alert_option, getTheme } = useLayoutStore();
