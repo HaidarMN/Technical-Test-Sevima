@@ -129,6 +129,7 @@ const Navbar: FC<NavbarType> = ({ title }) => {
                   <div className="absolute right-0 top-14 z-20 grid w-80 grid-cols-1 divide-y rounded-lg border border-slate-300 bg-white shadow-md dark:border-sky-500 dark:bg-sky-500 dark:text-white">
                     {data.map((item, index) => (
                       <Link
+                        key={item.id}
                         href={`/tickets/${item.id}`}
                         onClick={() => setOpenNotif(false)}
                         className={`flex flex-row items-center justify-between gap-4 px-4 py-2 hover:bg-sky-300 ${index === 0 && "rounded-t-lg"} ${index === data.length - 1 && "rounded-b-lg"}`}
