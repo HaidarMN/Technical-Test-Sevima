@@ -1,6 +1,10 @@
 {
-  "name": "next-skeleteon",
-  "version": "0.1.0",
+  "name": "technical-test-sekawan",
+  "version": "1.0.0",
+  "author": {
+    "name": "Haidar Muhammad Naufal",
+    "email": "hmnaufal14@gmail.com"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",

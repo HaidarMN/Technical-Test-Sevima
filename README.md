@@ -1,13 +1,11 @@
-# Next.js Skeleton / Starter Pack
-
-Look at the [Next.js documentaion](https://nextjs.org/) to learn more.
+# Technical Test Sekawan
 
 ## Getting Started
 
-**Important Note**: this project use pnpm for package manager. Make sure to install it first:
+**Important Note**: this project use pnpm v8.15.2 for package manager. Make sure to install it first:
 
 ```bash
-npm install -g pnpm
+npm install -g pnpm@8.15.2
 ```
 
 Don't forget to install the package:
@@ -26,49 +24,22 @@ pnpm run dev
 pnpm dev
 ```
 
+**Important Note**: this project is using Firebase for the data. If you want to search for something, make sure to type it correctly
+
+Example:
+Title: "Testing Search"
+
+Search query:
+"Testing Search" :white_check_mark:
+"testing search" :white_check_mark:
+"Testing search" :white_check_mark:
+"Test" :x:
+"Testing" :x:
+"testing se" :x:
+
 ## Packages List
 
-- :globe_with_meridians: [Axios](https://axios-http.com/) for HTTP request
-- :cookie: [JS Cookie](https://www.npmjs.com/package/js-cookie) for setting up cookie
-- :art: [TailwindCSS](https://tailwindcss.com/) for CSS framework
-- :star2: [Animate.css](https://animate.style/) for CSS animation
-- :open_file_folder: [Zustand](https://zustand-demo.pmnd.rs/) for state management
-- :trollface: [React Icons](https://react-icons.github.io/react-icons/) for icons
-- :memo: [React Hook Form](https://react-hook-form.com/) for validation form
-- :white_check_mark: [Yup](https://www.npmjs.com/package/yup) for validation schema
-- :calendar: [Air Datepicker](https://air-datepicker.com/) for datepicker
-- :spiral_notepad: [React Select](https://react-select.com/home) for input select
-- :bar_chart: [Apexcharts](https://apexcharts.com/) for chart components
-
-## How To Use A Component
-
-### Text Input
-
-```bash
-import InputText from "@/components/global/input/Text"; // Component
-import { MdOutlineEmail } from "react-icons/md"; // Icons
-
-<InputText
-  name="username"
-  icon={<MdOutlineEmail />}
-  label="Username"
-  placeholder="Enter your username"
-  primary
-/>
-```
-
-### Props
-
-| Props       | Type            |
-| :---------- | :-------------- |
-| name        | String          |
-| label       | String          |
-| placeholder | String          |
-| icon        | Component       |
-| error       | String          |
-| primary     | Boolean         |
-| disabled    | Boolean         |
-| control     | React Hook Form |
-| passValue   | function        |
-
-**NB**: Props "name" is a required props
+- react v18
+- next v14.1.0
+- node v21.2.0
+- pnpm v8.15.2
