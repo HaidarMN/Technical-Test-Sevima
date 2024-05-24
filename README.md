@@ -30,12 +30,12 @@ Example:
 Title: "Testing Search"
 
 Search query:
-"Testing Search" :white_check_mark:
-"testing search" :white_check_mark:
-"Testing search" :white_check_mark:
-"Test" :x:
-"Testing" :x:
-"testing se" :x:
+- "Testing Search" :white_check_mark:
+- "testing search" :white_check_mark:
+- "Testing search" :white_check_mark:
+- "Test" :x:
+- "Testing" :x:
+- "testing se" :x:
 
 ## Packages List
 
