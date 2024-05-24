@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import MainLayout from "@/layouts/MainLayout";
 import { useLayoutStore } from "@/stores/layout";
 import moment from "moment";
+import { useAuthStore } from "@/stores/auth";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -43,7 +44,8 @@ const Tickets = () => {
 
   const router = useRouter();
   const { t } = useTranslation();
-  const { setBreadcrumb, errorHandler, setAlert } = useLayoutStore();
+  const { user } = useAuthStore();
+  const { setBreadcrumb, errorHandler } = useLayoutStore();
 
   const [openFilter, setOpenFilter] = useState<boolean>(false);
   const [openSort, setOpenSort] = useState<boolean>(false);
@@ -288,13 +290,19 @@ const Tickets = () => {
                   key={item.id}
                 >
                   <td className="p-4 pl-2">
-                    <Link
-                      href={`/tickets/${item.id}`}
-                      className="font-semibold text-sky-500 decoration-sky-500 underline-offset-2 hover:underline dark:text-white dark:decoration-white"
-                      title={item.title}
-                    >
-                      {item.title}
-                    </Link>
+                    {user.role === "admin" ? (
+                      <Link
+                        href={`/tickets/${item.id}`}
+                        className="font-semibold text-sky-500 decoration-sky-500 underline-offset-2 hover:underline dark:text-white dark:decoration-white"
+                        title={item.title}
+                      >
+                        {item.title}
+                      </Link>
+                    ) : (
+                      <span className="font-semibold dark:text-white">
+                        {item.title}
+                      </span>
+                    )}
                   </td>
                   <td className="p-4">{item.customer_name}</td>
                   <td className="p-4">{item.created_at}</td>

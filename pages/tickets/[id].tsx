@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import MainLayout from "@/layouts/MainLayout";
 import { useLayoutStore } from "@/stores/layout";
+import { useAuthStore } from "@/stores/auth";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +19,7 @@ import Button from "@/components/global/button";
 const DetailTicket = () => {
   const router = useRouter();
   const { t } = useTranslation();
+  const { user } = useAuthStore();
   const { setBreadcrumb, errorHandler, setAlert } = useLayoutStore();
 
   const [data, setData] = useState<DocumentData>([]);
@@ -108,6 +110,9 @@ const DetailTicket = () => {
   };
 
   useEffect(() => {
+    if (user.role === "guest") {
+      router.push("/tickets");
+    }
     setBreadcrumb(["Tickets", "Detail Tickets"]);
     getData();
   }, []);

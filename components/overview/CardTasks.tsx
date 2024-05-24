@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useLayoutStore } from "@/stores/layout";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import { useAuthStore } from "@/stores/auth";
 
 import {
   addDoc,
@@ -47,6 +48,7 @@ const CardTask = () => {
 
   const router = useRouter();
   const { t } = useTranslation();
+  const { user } = useAuthStore();
   const { errorHandler, setAlert } = useLayoutStore();
 
   const [isAddTask, setIsAddTask] = useState<boolean>(false);
@@ -204,13 +206,19 @@ const CardTask = () => {
                 onChange={() => updateStatusTask(item.id)}
                 checked={item.status}
               />
-              <Link
-                href={`/tasks?search=${item.title}`}
-                className="font-semibold text-blue-500 underline-offset-2 hover:underline dark:text-white"
-                title={item.title}
-              >
-                {item.title}
-              </Link>
+              {user.role === "admin" ? (
+                <Link
+                  href={`/tasks?search=${item.title}`}
+                  className="font-semibold text-blue-500 underline-offset-2 hover:underline dark:text-white"
+                  title={item.title}
+                >
+                  {item.title}
+                </Link>
+              ) : (
+                <span className="font-semibold dark:text-white">
+                  {item.title}
+                </span>
+              )}
             </div>
             <span
               className={`rounded-md px-3 py-1 text-sm font-semibold uppercase text-white ${getPriorityStyle(item.priority)}`}

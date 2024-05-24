@@ -1,7 +1,9 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import MainLayout from "@/layouts/MainLayout";
 import dynamic from "next/dynamic";
 import { useLayoutStore } from "@/stores/layout";
+import { useAuthStore } from "@/stores/auth";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -21,7 +23,9 @@ import CardUnresolvedTicket from "@/components/overview/CardUnresolvedTickets";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const Home = () => {
+  const router = useRouter();
   const { t } = useTranslation();
+  const { user } = useAuthStore();
   const { setBreadcrumb, errorHandler, theme } = useLayoutStore();
 
   const [listTotal, setListTotal] = useState<DocumentData>();
@@ -104,10 +108,13 @@ const Home = () => {
   };
 
   useEffect(() => {
+    if (user.role === "guest") {
+      router.push("/tickets");
+    }
     setBreadcrumb(["Overview"]);
     getListTotal();
     getDataChart();
-  }, []);
+  }, [user]);
 
   return (
     <MainLayout title="Overview">

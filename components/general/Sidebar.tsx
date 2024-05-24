@@ -10,10 +10,12 @@ import { EnglishFlag } from "../logo/EnglishFlag";
 import { IndonesiaFlag } from "../logo/IndonesiaFlag";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { useAuthStore } from "@/stores/auth";
 
 const Sidebar = () => {
   const pathname = usePathname();
   const { i18n } = useTranslation();
+  const { user } = useAuthStore();
 
   const [isOpenLanguage, setIsOpenLanguage] = useState<boolean>(false);
   const [currentLanguage, setCurrentLanguage] = useState<{
@@ -33,9 +35,14 @@ const Sidebar = () => {
   });
 
   const list_menu = [
-    { label: "Overview", path: "/", icon: <FaChartPie /> },
-    { label: "Tasks", path: "/tasks", icon: <MdTask /> },
-    { label: "Tickets", path: "/tickets", icon: <FaTicketSimple /> },
+    { label: "Overview", path: "/", icon: <FaChartPie />, role: ["admin"] },
+    { label: "Tasks", path: "/tasks", icon: <MdTask />, role: ["admin"] },
+    {
+      label: "Tickets",
+      path: "/tickets",
+      icon: <FaTicketSimple />,
+      role: ["admin", "guest"],
+    },
   ];
 
   const onChangeLanguage = (name: string, logo: React.ReactNode) => {
@@ -83,17 +90,20 @@ const Sidebar = () => {
         <h1 className="text-2xl font-bold lg:hidden dark:text-sky-500">L</h1>
 
         <ul className="w-full space-y-2">
-          {list_menu.map((val, index) => (
-            <li key={index}>
-              <Link
-                href={val.path}
-                className={`flex w-full flex-row items-center justify-center gap-4 px-2 py-2 text-xl lg:justify-normal lg:px-4 lg:text-base ${pathname === val.path ? "rounded-lg bg-slate-950 font-medium text-white dark:bg-sky-500" : "hover:text-sky-500 dark:text-sky-500 dark:hover:text-slate-500"}`}
-              >
-                {val.icon}
-                <span className="hidden lg:block">{val.label}</span>
-              </Link>
-            </li>
-          ))}
+          {list_menu.map(
+            (val, index) =>
+              val.role.includes(user.role) && (
+                <li key={index}>
+                  <Link
+                    href={val.path}
+                    className={`flex w-full flex-row items-center justify-center gap-4 px-2 py-2 text-xl lg:justify-normal lg:px-4 lg:text-base ${pathname === val.path ? "rounded-lg bg-slate-950 font-medium text-white dark:bg-sky-500" : "hover:text-sky-500 dark:text-sky-500 dark:hover:text-slate-500"}`}
+                  >
+                    {val.icon}
+                    <span className="hidden lg:block">{val.label}</span>
+                  </Link>
+                </li>
+              ),
+          )}
         </ul>
       </div>
 

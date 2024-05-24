@@ -4,6 +4,7 @@ import MainLayout from "@/layouts/MainLayout";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { useLayoutStore } from "@/stores/layout";
+import { useAuthStore } from "@/stores/auth";
 
 import {
   collection,
@@ -39,6 +40,7 @@ const Tasks = () => {
 
   const router = useRouter();
   const { t } = useTranslation();
+  const { user } = useAuthStore();
   const { setBreadcrumb, errorHandler, setAlert } = useLayoutStore();
 
   const [openFilter, setOpenFilter] = useState<boolean>(false);
@@ -153,9 +155,12 @@ const Tasks = () => {
   };
 
   useEffect(() => {
+    if (user.role === "guest") {
+      router.push("/tickets");
+    }
     setBreadcrumb(["Tasks"]);
     getData();
-  }, [router.query]);
+  }, [router.query, user]);
 
   return (
     <MainLayout title="List Tasks">
