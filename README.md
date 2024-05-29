@@ -2,6 +2,14 @@
 
 ## Getting Started
 
+**Admin**
+admin@admin.com
+admin123
+
+**Guest**
+guest@guest.com
+guest123
+
 **Important Note**: this project use pnpm v8.15.2 for package manager. Make sure to install it first:
 
 ```bash
